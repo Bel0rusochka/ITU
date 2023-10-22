@@ -69,5 +69,4 @@ class TipsPageController extends ControllerMVC{
       MaterialPageRoute(builder: (context) => pageObj),
     );
   }
-
 }

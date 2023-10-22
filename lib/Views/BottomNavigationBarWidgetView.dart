@@ -6,9 +6,6 @@ import 'package:itu_dev/Views/BalancePageView.dart';
 import 'package:itu_dev/Views/GoalsPageView.dart';
 import 'package:itu_dev/Views/DebtPageView.dart';
 
-
-
-
 class BottomNavigationBarWidgetView extends StatelessWidget{
   BottomNavigationBarWidgetView({super.key});
   final BottomNavigationBarWidgetController _controller = BottomNavigationBarWidgetController();

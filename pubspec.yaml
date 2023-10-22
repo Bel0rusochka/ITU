@@ -14,11 +14,13 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   mvc_pattern: ^8.12.0
+  sqflite: ^2.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  path_provider: ^2.1.1
 
 
 
@@ -32,7 +34,6 @@ flutter:
     - images/debt.png
     - images/goal.png
     - images/tips.png
-    - json/tips.json
   fonts:
     - family: MiriamLibre
       fonts:
