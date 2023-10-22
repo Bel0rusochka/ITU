@@ -1,0 +1,8 @@
+/.dart_tool
+/.idea
+/android
+/ios
+.metadata
+analysis_options.yaml
+itu_dev.iml
+pubspec.lock
