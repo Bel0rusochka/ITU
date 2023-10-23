@@ -22,6 +22,7 @@ class _MainPageViewState extends State<MainPageView>{
       appBar: AppBar(
         toolbarHeight: 120,
         backgroundColor: Colors.lightBlue.shade50,
+        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.notifications),
@@ -31,7 +32,6 @@ class _MainPageViewState extends State<MainPageView>{
               }
           )
         ],
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
       ),
       body: SingleChildScrollView(
           child: SizedBox(

@@ -15,7 +15,7 @@ class TipsPageController extends ControllerMVC{
   Future<Column> drawBubble(context) async{
     List<Widget> widgets;
     final TipsPageModel _model = TipsPageModel();
-    List<Tip> tips = await _model.loadJsonData();
+    List<Tip> tips = await _model.loadDBData();
     widgets = tips.map((tip) {
       return Column(
         children: [
@@ -55,7 +55,7 @@ class TipsPageController extends ControllerMVC{
               ),
             ),
           ),
-          SizedBox(height: 16.0), // Размер пространства между контейнерами
+          SizedBox(height: 16.0),
         ],
       );
     }).toList();

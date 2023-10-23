@@ -20,7 +20,7 @@ class Tip{
 }
 
 class TipsPageModel{
-  Future<List<Tip>> loadJsonData() async {
+  Future<List<Tip>> loadDBData() async {
 
     DBProvider dbProvider = DBProvider("TIPS");
     Database database = await dbProvider.database;

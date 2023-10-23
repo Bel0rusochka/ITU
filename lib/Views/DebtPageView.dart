@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Views/DebtAddPageView.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Controllers/DebtPageController.dart';
 
@@ -20,6 +21,15 @@ class _DebtPageViewState extends State<DebtPageView>{
         toolbarHeight: 120,
         backgroundColor: Colors.lightBlue.shade50,
         title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.add),
+              iconSize: 35,
+              onPressed: (){
+                _controller.gotoTextPage(const DebtAddPageView(title: "Add Debt"), context);
+              }
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: SizedBox(
