@@ -23,10 +23,10 @@ class _DebtPageViewState extends State<DebtPageView>{
         title: Text(widget.title, style: const TextStyle(fontSize: 28)),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               iconSize: 35,
               onPressed: (){
-                _controller.gotoTextPage(const DebtAddPageView(title: "Add Debt"), context);
+                _controller.gotoPage(const DebtAddPageView(title: "New Debts"), context);
               }
           )
         ],
@@ -35,10 +35,10 @@ class _DebtPageViewState extends State<DebtPageView>{
         child: SizedBox(
           width: double.infinity,
           child: FutureBuilder<Column?>(
-            future: _controller.drawBubble(context),
+            future: _controller.drawBubble(context, 255),
             builder: (context, AsyncSnapshot<Column?> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if (snapshot.hasData && snapshot.data != null) {

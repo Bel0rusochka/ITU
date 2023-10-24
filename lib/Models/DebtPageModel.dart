@@ -36,6 +36,17 @@ class DebtPageModel{
     DBProvider dbProvider = DBProvider("DEBTS");
     dbProvider.addDebtToDb(name, date, amount);
   }
+
+  dellDebtFromDB(id) async{
+    DBProvider dbProvider = DBProvider("DEBTS");
+    dbProvider.dellDebtFromDB(id);
+  }
+
+  editDebtInDB(id, newName, newAmount, newDate) async{
+    DBProvider dbProvider = DBProvider("DEBTS");
+    dbProvider.editDebtInDB(id, newName, newAmount, newDate);
+  }
+
 }
 
 class DBProvider {
@@ -88,4 +99,24 @@ class DBProvider {
     int id = result.first['id'] ?? 1;
     return id;
   }
+
+  dellDebtFromDB(id) async{
+    Database db = await database;
+    await db.delete('DEBTS', where: 'id = ?', whereArgs: [id]);
+  }
+
+  editDebtInDB(id, newName, newAmount, newDate) async {
+    Database db = await database;
+    await db.update(
+      'DEBTS',
+      {
+        'name': newName,
+        'amount': newAmount,
+        'date': newDate,
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/MainPageController.dart';
+import 'package:itu_dev/Controllers/DebtPageController.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 
 class MainPageView extends StatefulWidget{
@@ -11,11 +12,12 @@ class MainPageView extends StatefulWidget{
 }
 
 class _MainPageViewState extends State<MainPageView>{
-  final MainPageController _controller = MainPageController();
+  final MainPageController _controllerMain = MainPageController();
+  final DebtPageController _controllerDebt = DebtPageController();
 
   @override
   Widget build(BuildContext context) {
-    Color color =  const Color.fromARGB(255, 181, 198, 224);
+    Color color =  const Color.fromARGB(255, 128, 197, 215);
     var wightBubble = 372.0;
     var hightBubble = 171.0;
     return Scaffold(
@@ -25,10 +27,10 @@ class _MainPageViewState extends State<MainPageView>{
         title: Text(widget.title, style: const TextStyle(fontSize: 28)),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               iconSize: 35,
               onPressed: (){
-                _controller.tapNotification();
+                _controllerMain.tapNotification();
               }
           )
         ],
@@ -127,27 +129,7 @@ class _MainPageViewState extends State<MainPageView>{
                   ),
                 ),
                 const SizedBox(height: 7),
-                Container(
-                  height: hightBubble,
-                  width: wightBubble,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'My Debts',
-                          style: TextStyle(
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _controllerMain.getDebtPartMain(hightBubble, wightBubble, color, _controllerDebt, context),
                 const SizedBox(height: 7),
               ],
             ),

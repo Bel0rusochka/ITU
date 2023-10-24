@@ -30,7 +30,7 @@ class TipsPageController extends ControllerMVC{
               height: 101.0,
               width: 372.0,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 62, 210, 94),
+                color: const Color.fromARGB(255, 128, 197, 215),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
