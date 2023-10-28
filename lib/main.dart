@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'ITU proj',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor : Colors.lightBlue.shade50,
+        scaffoldBackgroundColor : const Color(0xFF575093),
         fontFamily: "MiriamLibre",
         useMaterial3: true,
       ),
