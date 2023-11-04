@@ -31,19 +31,9 @@ class DBProvider {
     Directory documentsDirectory = await getApplicationSupportDirectory();
     String path = join(documentsDirectory.path, "$dbName.db");
     return await openDatabase(path, version: 1, onOpen: (db) {}, onCreate: (Database db, int version) async {
-      await db.execute('CREATE TABLE EXPENSE (id INTEGER PRIMARY KEY, name TEXT, amount INTEGER)');
       await db.execute('CREATE TABLE INCOME (id INTEGER PRIMARY KEY, name TEXT, amount INTEGER)');
       await db.execute('CREATE TABLE BALANCE (id INTEGER PRIMARY KEY, balance INTEGER)');
     });
-  }
-
-  addExpenseToDb(name, amount) async {
-    Database db = await database;
-    int id = await _getNextId('EXPENSE');
-    await db.rawInsert(
-      "INSERT INTO EXPENSE (id, name, amount) VALUES (?, ?, ?)",
-      [id, name, amount],
-    );
   }
 
   Future<int> _getNextId(String tableName) async {
@@ -51,24 +41,6 @@ class DBProvider {
     List<Map<String, dynamic>> result = await db.rawQuery("SELECT MAX(id) + 1 as id FROM $tableName");
     int id = result.first['id'] ?? 1;
     return id;
-  }
-
-  deleteExpenseFromDB(id) async {
-    Database db = await database;
-    await db.delete('EXPENSE', where: 'id = ?', whereArgs: [id]);
-  }
-
-  editExpenseInDB(id, newName, newAmount) async {
-    Database db = await database;
-    await db.update(
-      'EXPENSE',
-      {
-        'name': newName,
-        'amount': newAmount,
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
   }
 
   addIncomeToDb(name, amount) async {
@@ -114,20 +86,6 @@ class DBProvider {
   }
 }
 
-class Expense {
-  int id;
-  String name;
-  int amount;
-
-  Expense({required this.id, required this.name, required this.amount});
-  factory Expense.fromDb(Map<String, dynamic> dbData) {
-    return Expense(
-      id: dbData['id'] as int,
-      name: dbData['name'] as String,
-      amount: dbData['amount'] as int,
-    );
-  }
-}
 
 class Income {
   int id;
@@ -150,31 +108,7 @@ class Balance {
   Balance({required this.balance});
 }
 
-class ExpensePageModel {
-  Future<List<Expense>> loadDBData() async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
-    Database database = await dbProvider.database;
-    List<Map<String, dynamic>> result = await database.query('EXPENSE');
-    return result.map((row) {
-      return Expense.fromDb(row);
-    }).toList();
-  }
 
-  addExpenseToDb(name, amount) async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.addExpenseToDb(name, amount);
-  }
-
-  deleteExpenseFromDB(id) async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.deleteExpenseFromDB(id);
-  }
-
-  editExpenseInDB(id, newName, newAmount) async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.editExpenseInDB(id, newName, newAmount);
-  }
-}
 
 class IncomePageModel {
   Future<List<Income>> loadDBData() async {

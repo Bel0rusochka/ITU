@@ -4,7 +4,7 @@ import 'package:itu_dev/Views/SpecificWalletView.dart';
 import 'package:itu_dev/Models/SpecificWalletPageModel.dart';
 
 class WalletPageController extends ControllerMVC {
-  final ExpensePageModel _model = ExpensePageModel();
+  final IncomePageModel _model = IncomePageModel();
 
   factory WalletPageController(){
     _this ??= WalletPageController();
