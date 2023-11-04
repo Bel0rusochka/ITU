@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ExpenseItemWidget extends StatelessWidget {
-  final Color categoryColor;
-  final String categoryName;
-  final int categoryAmount;
-  final IconData categoryIcon;
+  final Color color;
+  final String name;
+  final int amount;
+  final IconData icon;
 
   const ExpenseItemWidget({super.key,
-    required this.categoryColor,
-    required this.categoryName,
-    required this.categoryAmount,
-    required this.categoryIcon,
+    required this.color,
+    required this.name,
+    required this.amount,
+    required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(categoryIcon, color: categoryColor, size: 36.0),
-      title: Text(categoryName),
-      trailing: Text('\$${categoryAmount.toString}'),
+      leading: Icon(icon, color: color, size: 36.0),
+      title: Text(name),
+      trailing: Text('\$${amount.toString}'),
     );
   }
 }

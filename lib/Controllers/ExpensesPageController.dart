@@ -19,10 +19,10 @@ class ExpensesPageController extends ControllerMVC {
 
     List<ExpenseItemWidget> expenseWidgets = expenses.map((expense) {
       return ExpenseItemWidget(
-        categoryColor: expense.color,
-        categoryName: expense.name,
-        categoryAmount: expense.amount,
-        categoryIcon: expense.icon,
+        color: expense.color,
+        name: expense.name,
+        amount: expense.amount,
+        icon: expense.icon,
       );
     }).toList();
     return expenseWidgets;
@@ -42,7 +42,9 @@ class ExpensesPageController extends ControllerMVC {
 
   void save(name, amount, color, icon) {
     _model.addExpenseToDb(name, amount, color, icon);
+    print('___________________________________________________________________________________________________________________________Selected color: $color');
   }
+
 
   void edit(id, newName, newDate, newAmount) {
     _model.editExpenseInDB(id, newName, newAmount);

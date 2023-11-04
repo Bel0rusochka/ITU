@@ -99,7 +99,6 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
                 },
                 child: const Icon(Icons.shopping_cart, size: 36),
               ),
-              // Добавьте другие иконки по вашему выбору
             ],
           ),
         );
@@ -130,7 +129,7 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
           TextButton(
             child: const Text('Save', style: TextStyle(color: Colors.lightBlue, fontSize: 20)),
             onPressed: () {
-              _controller.save(categoryName, int.parse(amount), selectedColor.value, selectedIcon);
+              _controller.save(categoryName, int.parse(amount), selectedColor, selectedIcon);
               _controller.gotoPage(const ExpensesPageView(title: "Expenses"), context);
             },
           )

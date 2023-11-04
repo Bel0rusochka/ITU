@@ -11,19 +11,26 @@ class Expense {
   Color color;
   IconData icon;
 
- Expense({required this.icon, required this.color, required this.amount, required this.id, required this.name});
+  Expense({
+    required this.name,
+    required this.amount,
+    required this.id,
+    Color? color,
+    IconData? icon,
+  }) :
+        color = color ?? Colors.black,
+        icon = icon ?? Icons.error; // Set default values if color or icon are null
 
   factory Expense.fromDb(Map<String, dynamic> dbData) {
     return Expense(
-      id : dbData['id'] as int,
-      name : dbData['name'] as String,
-      amount : dbData['amount'] as int,
-      color : dbData['color'] as Color,
-      icon : dbData['icon'] as IconData,
-      );
-    }
+      id: dbData['id'] as int,
+      name: dbData['name'] as String,
+      amount: dbData['amount'] as int,
+      color: dbData['color'] as Color? ?? Colors.black,
+      icon: dbData['icon'] as IconData? ?? Icons.error,
+    );
+  }
 }
-
 
 
 class ExpensePageModel {
@@ -72,6 +79,9 @@ class DBProvider {
   Database? _database;
 
   Future<Database> get database async {
+    // Directory documentsDirectory = await getApplicationSupportDirectory();
+    // String path = join(documentsDirectory.path, "$dbName.db");
+    // await deleteDatabase(path);
     if (_database != null) return _database!;
     _database = await _initDB();
     return _database!;

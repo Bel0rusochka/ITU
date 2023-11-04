@@ -65,10 +65,27 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
             );
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
-          } else if (snapshot.hasData && snapshot.data != null && snapshot.data!.isNotEmpty) {
-            return ListView(
-              children: snapshot.data!.map((widget) => widget).toList(),
-            );
+          } else if (snapshot.hasData && snapshot.data != null) {
+            if (snapshot.data!.isEmpty) {
+              return const Center(
+                child: Text('No data available'),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final expenseItem = snapshot.data![index];
+                  return ListTile(
+                    leading: const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Icon(Icons.account_balance_wallet_rounded),
+                    ),
+                    title: Text(expenseItem.name),
+                    trailing: Text(expenseItem.amount.toString()),
+                  );
+                },
+              );
+            }
           } else {
             return const Center(
               child: Text('No data available'),
@@ -76,6 +93,7 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
           }
         },
       ),
+
       bottomNavigationBar: BottomNavigationBarWidgetView(),
     );
   }
