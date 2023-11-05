@@ -14,7 +14,11 @@ class MyApp extends StatelessWidget {
       title: 'ITU proj',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor : Colors.lightBlue.shade50,
+        appBarTheme: const AppBarTheme(
+          color: Color.fromARGB(255, 87, 80, 147),
+          iconTheme: IconThemeData(color: Colors.white)
+        ),
+        scaffoldBackgroundColor : Color.fromARGB(255, 87, 80, 147),
         fontFamily: "MiriamLibre",
         useMaterial3: true,
       ),

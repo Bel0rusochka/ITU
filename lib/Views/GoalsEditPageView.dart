@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:itu_dev/Views/DebtPageView.dart';
-import 'package:itu_dev/Views/DebtEditDeletePage.dart';
-import 'package:itu_dev/Controllers/DebtPageController.dart';
+import 'package:itu_dev/Views/GoalsPageView.dart';
+import 'package:itu_dev/Views/GoalsEditDeletePage.dart';
+import 'package:itu_dev/Controllers/GoalsPageController.dart';
 
-class DebtEditPageView extends StatefulWidget {
-  const DebtEditPageView({super.key,required this.id, required this.name, required this.amount, required this.date});
+class GoalsEditPageView extends StatefulWidget {
+  const GoalsEditPageView({super.key,required this.id, required this.name, required this.amount,required this.goalAmount, required this.date});
 
   final id;
   final name;
   final amount;
   final date;
+  final goalAmount;
 
   @override
-  State<DebtEditPageView> createState() => _DebtEditPageViewState();
+  State<GoalsEditPageView> createState() => _GoalsEditPageViewState();
 }
 
-class _DebtEditPageViewState extends State<DebtEditPageView>{
-  final DebtPageController _controller = DebtPageController();
+class _GoalsEditPageViewState extends State<GoalsEditPageView>{
+  final GoalsPageController _controller = GoalsPageController();
 
 
   @override
@@ -24,6 +25,7 @@ class _DebtEditPageViewState extends State<DebtEditPageView>{
     String newName=widget.name;
     String newDate=widget.date;
     String newAmount=widget.amount;
+    String newGoalAmount=widget.goalAmount;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,14 +33,14 @@ class _DebtEditPageViewState extends State<DebtEditPageView>{
         title: const Text("Edit", style: TextStyle(fontSize: 28, color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed:  (){_controller.gotoPage(DebtEditDeletePage(id: widget.id, name: widget.name, amount: widget.amount, date: widget.date), context);}, // Вызов метода _goBack при нажатии кнопки "назад"
+          onPressed:  (){_controller.gotoPage(GoalsEditDeletePage(id: widget.id, name: widget.name, amount: widget.amount, date: widget.date, goalAmount: widget.goalAmount), context);},
         ),
         actions: <Widget>[
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                _controller.edit(widget.id, newName, newDate, newAmount);
-                _controller.gotoPage(const DebtPageView(title: "My Debt"), context);
+                _controller.edit(widget.id, newName, newDate, newAmount, newGoalAmount);
+                _controller.gotoPage(const GoalsPageView(title: "My Goals"), context);
               }
           )
         ],
@@ -56,7 +58,22 @@ class _DebtEditPageViewState extends State<DebtEditPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Name',
+                  labelText: 'Goal',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                style: const TextStyle(color: Colors.white),
+                controller: TextEditingController(text: widget.goalAmount),
+                onChanged: (text){newGoalAmount = text;} ,
+                decoration: const InputDecoration(
+                  labelStyle: TextStyle(
+                    color: Color.fromARGB(100, 255, 255, 255),
+                  ),
+                  labelText: 'Goal Amount',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -71,7 +88,7 @@ class _DebtEditPageViewState extends State<DebtEditPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Amount',
+                  labelText: 'Collected Amount',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -86,7 +103,7 @@ class _DebtEditPageViewState extends State<DebtEditPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Date for pay off',
+                  labelText: 'Desire date',
                   border: OutlineInputBorder(),
                 ),
               ),

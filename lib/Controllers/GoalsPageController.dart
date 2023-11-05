@@ -1,29 +1,29 @@
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:itu_dev/Models/DebtPageModel.dart';
-import 'package:itu_dev/Views/DebtEditDeletePage.dart';
+import 'package:itu_dev/Models/GoalsPageModel.dart';
+import 'package:itu_dev/Views/GoalsEditDeletePage.dart';
 
-class DebtPageController extends ControllerMVC{
-  final DebtPageModel _model = DebtPageModel();
-  factory DebtPageController(){
-    if(_this == null) _this = DebtPageController._();
+class GoalsPageController extends ControllerMVC{
+  final GoalsPageModel _model = GoalsPageModel();
+  factory GoalsPageController(){
+    _this ??= GoalsPageController._();
     return _this;
   }
 
-  static DebtPageController _this = DebtPageController._();
-  DebtPageController._();
+  static GoalsPageController _this = GoalsPageController._();
+  GoalsPageController._();
 
-  Future<Column> drawBubble(context, colorAlfa) async{
+  Future<Column> drawBubbleGoal(context, colorAlfa) async{
     List<Widget> widgets;
-    List<Debt> debts = await _model.loadDBData();
-    widgets = debts.map((debt) {
+    List<Goal> goals = await _model.loadDBData();
+    widgets = goals.map((goal) {
       return Column(
         children: [
           GestureDetector(
             onTap: () {
-              _this.gotoPage(DebtEditDeletePage(id: debt.id, name: debt.name, amount: debt.amount, date: debt.date), context);
+              _this.gotoPage(GoalsEditDeletePage(id: goal.id, name: goal.name, amount: goal.amount, date: goal.date, goalAmount: goal.goalAmount), context);
             },
-            child: _this.drawContainerDebt(101.0,372.0, colorAlfa, debt),
+            child: _this.drawContainerGoals(101.0,372.0, colorAlfa, goal),
           ),
           const SizedBox(height: 16.0),
         ],
@@ -32,13 +32,13 @@ class DebtPageController extends ControllerMVC{
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: widgets);
   }
 
-  Future<Column> drawDebtForMain(colorAlfa) async{
+  Future<Column> drawGoalsForMain(colorAlfa) async{
     List<Widget> widgets;
-    List<Debt> debts = await _model.loadDBData();
-    widgets = debts.map((debt) {
+    List<Goal> goals = await _model.loadDBData();
+    widgets = goals.map((goal) {
       return Column(
         children: [
-            _this.drawContainerDebt(60.0, 372.0, colorAlfa, debt),
+          _this.drawContainerGoals(60.0, 372.0, colorAlfa, goal),
           const SizedBox(height: 3.0),
         ],
       );
@@ -52,8 +52,8 @@ class DebtPageController extends ControllerMVC{
       MaterialPageRoute(builder: (context) => pageObj),
     );
   }
-  
-  Container drawContainerDebt(height,width, colorAlfa, debt){
+
+  Container drawContainerGoals(height,width, colorAlfa, goal){
 
     return Container(
       height: height,
@@ -73,13 +73,13 @@ class DebtPageController extends ControllerMVC{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    debt.name,
+                    goal.name,
                     style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   Text(
-                    debt.amount,
+                    "${goal.amount}/${goal.goalAmount}",
                     style: const TextStyle(
                       fontSize: 16,
                     ),
@@ -90,7 +90,7 @@ class DebtPageController extends ControllerMVC{
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Text(
-                "Pay off the debt before: \n${debt.date}",
+                "Data Goal: ${goal.date}",
                 style: const TextStyle(
                   color: Color.fromARGB(150, 78, 77, 77),
                   fontSize: 12,
@@ -103,14 +103,15 @@ class DebtPageController extends ControllerMVC{
     );
   }
 
-  void dellDebt(id){
-    _model.dellDebtFromDB(id);
+
+  void dellGoal(id){
+    _model.dellGoalFromDB(id);
   }
-  void save(name, date, amount){
-    _model.addDebtToDb(name, date, amount);
+  void saveGoal(name, date, amount, goalAmount){
+    _model.addGoalToDb(name, date, amount, goalAmount);
   }
 
-  void edit(id, newName, newDate, newAmount){
-    _model.editDebtInDB(id, newName, newAmount, newDate);
+  void edit(id, newName, newDate, newAmount, newGoalAmount){
+    _model.editGoalInDB(id, newName, newAmount, newDate, newGoalAmount);
   }
 }

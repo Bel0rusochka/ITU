@@ -17,8 +17,7 @@ class _TipsTextPageViewState extends State<TipsTextPageView>{
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
       ),
       body: Center(
         child: Column(
@@ -26,19 +25,18 @@ class _TipsTextPageViewState extends State<TipsTextPageView>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(widget.textTitle,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 15),
             Text(widget.text,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20, color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 90),
           ],
         ),
       ),
-      //bottomNavigationBar: const BottomNavigationBarWidget(),
     );
   }
 }

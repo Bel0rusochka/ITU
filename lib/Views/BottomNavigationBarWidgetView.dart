@@ -22,15 +22,16 @@ class BottomNavigationBarWidgetView extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return BottomAppBar(
-      height: 90,
-      color: const Color.fromARGB(255, 95, 168, 211),
+      clipBehavior: Clip.none,
+      height: 75,
+      color: const Color.fromARGB(255, 219, 179, 135),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
               icon: _getImage('images/tips.png'),
-              iconSize: 55,
+              iconSize: 67,
               onPressed: (){
                _controller.changePage(const TipsPageView(title: "My Financial advice"), context);
               }
@@ -55,7 +56,7 @@ class BottomNavigationBarWidgetView extends StatelessWidget{
               },
               child: const Icon(
                 Icons.home,
-                size: 60,
+                size: 50,
                 color: Colors.black,
               ),
             ),

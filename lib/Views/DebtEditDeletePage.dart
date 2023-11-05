@@ -23,10 +23,9 @@ class _DebtEditDeletePageState extends State<DebtEditDeletePage>{
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: const Text("Your Debts", style: TextStyle(fontSize: 28)),
+        title: const Text("Your Debts", style: const TextStyle(fontSize: 28, color: Colors.white)),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed:  (){_controller.gotoPage(const DebtPageView(title: "My Debt"), context);},
         ),
       ),
@@ -37,7 +36,7 @@ class _DebtEditDeletePageState extends State<DebtEditDeletePage>{
                 height: 101.0,
                 width: 372.0,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 128, 197, 215),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
@@ -91,7 +90,7 @@ class _DebtEditDeletePageState extends State<DebtEditDeletePage>{
                     height: 45.0,
                     width: 164.0,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 128, 197, 215),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Center(

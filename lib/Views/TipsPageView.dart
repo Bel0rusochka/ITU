@@ -28,8 +28,7 @@ class _TipsPageViewState extends State<TipsPageView> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -38,7 +37,7 @@ class _TipsPageViewState extends State<TipsPageView> {
             future: _drawBubble(),
             builder: (context, AsyncSnapshot<Column?> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError || snapshot.data == null) {
                 return const Center(
                   child: Text('Error occurred or no data available'),

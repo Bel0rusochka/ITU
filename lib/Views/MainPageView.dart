@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Controllers/GoalsPageController.dart';
 import 'package:itu_dev/Controllers/MainPageController.dart';
 import 'package:itu_dev/Controllers/DebtPageController.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
@@ -14,20 +15,20 @@ class MainPageView extends StatefulWidget{
 class _MainPageViewState extends State<MainPageView>{
   final MainPageController _controllerMain = MainPageController();
   final DebtPageController _controllerDebt = DebtPageController();
+  final GoalsPageController _controllerGoal = GoalsPageController();
 
   @override
   Widget build(BuildContext context) {
-    Color color =  const Color.fromARGB(255, 128, 197, 215);
+    Color color = Colors.white;
     var wightBubble = 372.0;
     var hightBubble = 171.0;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         actions: <Widget>[
           IconButton(
-              icon: const Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications, color: Colors.white),
               iconSize: 35,
               onPressed: (){
                 _controllerMain.tapNotification();
@@ -107,27 +108,7 @@ class _MainPageViewState extends State<MainPageView>{
                   ),
                 ),
                 const SizedBox(height: 7),
-                Container(
-                  height: hightBubble,
-                  width: wightBubble,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'My Goals',
-                          style: TextStyle(
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _controllerMain.getGoalPartMain(hightBubble, wightBubble, color, _controllerGoal, context),
                 const SizedBox(height: 7),
                 _controllerMain.getDebtPartMain(hightBubble, wightBubble, color, _controllerDebt, context),
                 const SizedBox(height: 7),

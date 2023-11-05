@@ -14,8 +14,8 @@ class TipsPageController extends ControllerMVC{
 
   Future<Column> drawBubble(context) async{
     List<Widget> widgets;
-    final TipsPageModel _model = TipsPageModel();
-    List<Tip> tips = await _model.loadDBData();
+    final TipsPageModel model = TipsPageModel();
+    List<Tip> tips = await model.loadDBData();
     widgets = tips.map((tip) {
       return Column(
         children: [
@@ -30,7 +30,7 @@ class TipsPageController extends ControllerMVC{
               height: 101.0,
               width: 372.0,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 128, 197, 215),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
@@ -55,7 +55,7 @@ class TipsPageController extends ControllerMVC{
               ),
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
         ],
       );
     }).toList();

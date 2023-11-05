@@ -14,16 +14,20 @@ class DebtPageView extends StatefulWidget {
 
 class _DebtPageViewState extends State<DebtPageView>{
   final DebtPageController _controller = DebtPageController();
+
+  Future<void> _refresh() async {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         actions: <Widget>[
           IconButton(
-              icon: const Icon(Icons.add),
+              icon: const Icon(Icons.add, color: Colors.white),
               iconSize: 35,
               onPressed: (){
                 _controller.gotoPage(const DebtAddPageView(title: "New Debts"), context);
@@ -31,24 +35,29 @@ class _DebtPageViewState extends State<DebtPageView>{
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: FutureBuilder<Column?>(
-            future: _controller.drawBubble(context, 255),
-            builder: (context, AsyncSnapshot<Column?> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else if (snapshot.hasData && snapshot.data != null) {
-                return snapshot.data!;
-              } else {
-                return const Center(
-                  child: Text('No data available'),
-                );
-              }
-            },
+      body: RefreshIndicator(
+
+        onRefresh: _refresh,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: SizedBox(
+            width: double.infinity,
+            child: FutureBuilder<Column?>(
+              future: _controller.drawBubble(context, 255),
+              builder: (context, AsyncSnapshot<Column?> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData && snapshot.data != null) {
+                  return snapshot.data!;
+                } else {
+                  return const Center(
+                    child: Text('No data available'),
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),

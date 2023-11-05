@@ -18,8 +18,7 @@ class _BalancePageViewState extends State<BalancePageView>{
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
       ),
       bottomNavigationBar: BottomNavigationBarWidgetView(),
     );

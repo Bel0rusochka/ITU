@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:itu_dev/Views/DebtPageView.dart';
-import 'package:itu_dev/Controllers/DebtPageController.dart';
+import 'package:itu_dev/Views/GoalsPageView.dart';
+import 'package:itu_dev/Controllers/GoalsPageController.dart';
 
-class DebtAddPageView extends StatefulWidget {
-  const DebtAddPageView({super.key, required this.title});
+class GoalsAddPageView extends StatefulWidget {
+  const GoalsAddPageView({super.key, required this.title});
 
   final String title;
 
   @override
-  State<DebtAddPageView> createState() => _DebtAddPageViewState();
+  State<GoalsAddPageView> createState() => _GoalsAddPageViewState();
 }
 
-class _DebtAddPageViewState extends State<DebtAddPageView>{
-  final DebtPageController _controller = DebtPageController();
+class _GoalsAddPageViewState extends State<GoalsAddPageView>{
+  final GoalsPageController _controller = GoalsPageController();
 
 
   @override
@@ -20,6 +20,7 @@ class _DebtAddPageViewState extends State<DebtAddPageView>{
     String name="";
     String amount="";
     String date="";
+    String goalAmount="";
 
     return Scaffold(
       appBar: AppBar(
@@ -27,14 +28,14 @@ class _DebtAddPageViewState extends State<DebtAddPageView>{
         title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed:  (){_controller.gotoPage(const DebtPageView(title: "My Debt"), context);}, // Вызов метода _goBack при нажатии кнопки "назад"
+          onPressed:  (){_controller.gotoPage(const GoalsPageView(title: "My Goal"), context);}, // Вызов метода _goBack при нажатии кнопки "назад"
         ),
         actions: <Widget>[
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                _controller.save(name, date, amount);
-                _controller.gotoPage(const DebtPageView(title: "My Debt"), context);
+                _controller.saveGoal(name, date, amount,goalAmount);
+                _controller.gotoPage(const GoalsPageView(title: "My Goal"), context);
               }
           )
         ],
@@ -51,7 +52,21 @@ class _DebtAddPageViewState extends State<DebtAddPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Name',
+                  labelText: 'Goal',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                style: const TextStyle(color: Colors.white),
+                onChanged: (text){goalAmount = text;} ,
+                decoration: const InputDecoration(
+                  labelStyle: TextStyle(
+                    color: Color.fromARGB(100, 255, 255, 255),
+                  ),
+                  labelText: 'Goal Amount',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -65,7 +80,7 @@ class _DebtAddPageViewState extends State<DebtAddPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Amount',
+                  labelText: 'Collected Amount',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -79,7 +94,7 @@ class _DebtAddPageViewState extends State<DebtAddPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Date for pay off',
+                  labelText: 'Date',
                   border: OutlineInputBorder(),
                 ),
               ),
