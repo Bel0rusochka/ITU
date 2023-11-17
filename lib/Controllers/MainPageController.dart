@@ -14,8 +14,11 @@ class MainPageController extends ControllerMVC{
   static MainPageController _this = MainPageController._();
   MainPageController._();
 
-  void tapNotification(){
-    print("бац");
+  void gotoPage(pageObj, context){
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => pageObj),
+    );
   }
 
   GestureDetector getDebtPartMain(hightBubble, wightBubble, color, controllerDebt, context){

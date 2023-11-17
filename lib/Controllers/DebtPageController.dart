@@ -106,6 +106,7 @@ class DebtPageController extends ControllerMVC{
   void dellDebt(id){
     _model.dellDebtFromDB(id);
   }
+
   void save(name, date, amount){
     _model.addDebtToDb(name, date, amount);
   }

@@ -1,4 +1,5 @@
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Models/TipsPageModel.dart';
 import 'package:itu_dev/Views/TipsTextPageView.dart';
@@ -63,10 +64,13 @@ class TipsPageController extends ControllerMVC{
   }
 
 
-  void gotoTextPage(pageObj, context){
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => pageObj),
-    );
+  Future<Tip> getRandomTip() async {
+    final TipsPageModel model = TipsPageModel();
+    List<Tip> tips = await model.loadDBData();
+
+    final Random random = Random();
+    int randomIndex = random.nextInt(tips.length);
+
+    return tips[randomIndex];
   }
 }

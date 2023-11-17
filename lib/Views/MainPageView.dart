@@ -3,6 +3,8 @@ import 'package:itu_dev/Controllers/GoalsPageController.dart';
 import 'package:itu_dev/Controllers/MainPageController.dart';
 import 'package:itu_dev/Controllers/DebtPageController.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
+import 'package:itu_dev/Views/NotificationsPageView.dart';
+import 'package:itu_dev/Views/NotificationsPageView.dart';
 
 class MainPageView extends StatefulWidget{
   const MainPageView({super.key, required this.title});
@@ -31,7 +33,7 @@ class _MainPageViewState extends State<MainPageView>{
               icon: const Icon(Icons.notifications, color: Colors.white),
               iconSize: 35,
               onPressed: (){
-                _controllerMain.tapNotification();
+                _controllerMain.gotoPage(const NotificationsPageView(title: "My Notifications"), context);
               }
           )
         ],

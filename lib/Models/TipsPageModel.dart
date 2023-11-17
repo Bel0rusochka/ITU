@@ -53,7 +53,6 @@ class DBProvider {
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB();
-    await _insertInitialData();
     return _database!;
   }
 
