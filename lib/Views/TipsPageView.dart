@@ -13,28 +13,59 @@ class TipsPageView extends StatefulWidget {
 
 class _TipsPageViewState extends State<TipsPageView> {
   final TipsPageController _controller = TipsPageController();
-
-  Future<Column?> _drawBubble() async {
+  String chooseCategory = "All";
+  Future<Column?> _drawBubble(chooseCategory) async {
     try {
-      return await _controller.drawBubble(context);
+      return await _controller.drawBubble(context, chooseCategory);
     } catch (e) {
       setState(() {});
       return null;
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
+
+    print(21);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
         title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            onSelected: (value) {
+              setState(() {
+                chooseCategory = value;
+              });
+            },
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem<String>(
+                value: 'Useful',
+                child: Text('Useful advice'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'Useless',
+                child: Text('Useless advice'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'All',
+                child: Text('All advice'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'None',
+                child: Text('Without category advice'),
+              ),
+            ],
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
           child: FutureBuilder<Column?>(
-            future: _drawBubble(),
+            future: _drawBubble(chooseCategory),
             builder: (context, AsyncSnapshot<Column?> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator();
