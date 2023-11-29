@@ -3,7 +3,7 @@ import 'package:itu_dev/Views/ExpensesPageView.dart';
 import 'package:itu_dev/Controllers/ExpensesPageController.dart';
 
 class NewExpensePageView extends StatefulWidget {
-  const NewExpensePageView({super.key, required this.title});
+  const NewExpensePageView({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -16,11 +16,11 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
 
   String categoryName = "";
   String amount = "";
-  Color selectedColor = const Color(0xFFDBB387);
-  IconData selectedIcon = Icons.category;
+  int selectedColor = 0xFFDBB387;
+  IconData selectedIcon = const IconData(0xe59c, fontFamily: 'MaterialIcons');
 
   Future<void> chooseColor() async {
-    Color? pickedColor = await showDialog<Color>(
+    int? pickedColor = await showDialog<int>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -29,7 +29,7 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(const Color(0xFFDBB387));
+                  Navigator.of(context).pop(0xFFDBB387);
                 },
                 child: Container(
                   width: 36,
@@ -42,7 +42,7 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(const Color(0xFF44C7BB));
+                  Navigator.of(context).pop(0xFF44C7BB);
                 },
                 child: Container(
                   width: 36,
@@ -55,7 +55,7 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(const Color(0xFF6F73D2));
+                  Navigator.of(context).pop(0xFF6F73D2);
                 },
                 child: Container(
                   width: 36,
@@ -89,15 +89,99 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(Icons.category);
+                  Navigator.of(context)
+                      .pop(const IconData(0xe59c, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(Icons.category, size: 36),
+                child: const Icon(IconData(0xe59c, fontFamily: 'MaterialIcons'),
+                    size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(Icons.shopping_cart);
+                  Navigator.of(context)
+                      .pop(const IconData(0xe1d5, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(Icons.shopping_cart, size: 36),
+                child: const Icon(IconData(0xe1d5, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe318, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe318, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe396, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe396, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe05d, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe05d, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe054, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe054, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe06d, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe06d, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe0b2, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe0b2, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe146, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe146, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe15d, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe15d, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe237, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe237, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe5e8, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe5e8, fontFamily: 'MaterialIcons'),
+                    size: 36),
               ),
             ],
           ),
@@ -122,15 +206,19 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            _controller.gotoPage(const ExpensesPageView(title: "New Expense"), context);
+            _controller.gotoPage(
+                const ExpensesPageView(title: "New Expense"), context);
           },
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('Save', style: TextStyle(color: Colors.lightBlue, fontSize: 20)),
+            child: const Text('Save',
+                style: TextStyle(color: Colors.lightBlue, fontSize: 20)),
             onPressed: () {
-              _controller.save(categoryName, int.parse(amount), selectedColor, selectedIcon);
-              _controller.gotoPage(const ExpensesPageView(title: "Expenses"), context);
+              _controller.save(
+                  categoryName, int.parse(amount), selectedColor, selectedIcon);
+              _controller.gotoPage(
+                  const ExpensesPageView(title: "Expenses"), context);
             },
           )
         ],
@@ -138,7 +226,6 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Ввод имени категории
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
@@ -151,7 +238,6 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
                 ),
               ),
             ),
-            // Ввод суммы траты
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
@@ -164,7 +250,6 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
                 ),
               ),
             ),
-            // Выбор цвета
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -177,14 +262,13 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
                       height: 36,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: selectedColor,
+                        color: Color(selectedColor),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            // Выбор иконки
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(

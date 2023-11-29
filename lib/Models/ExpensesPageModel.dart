@@ -8,30 +8,27 @@ class Expense {
   int id;
   String name;
   int amount;
-  Color color;
+  int color;
   IconData icon;
 
   Expense({
     required this.name,
     required this.amount,
     required this.id,
-    Color? color,
-    IconData? icon,
-  }) :
-        color = color ?? Colors.black,
-        icon = icon ?? Icons.error; // Set default values if color or icon are null
+    required this.color,
+    required this.icon,
+  });
 
   factory Expense.fromDb(Map<String, dynamic> dbData) {
     return Expense(
       id: dbData['id'] as int,
       name: dbData['name'] as String,
       amount: dbData['amount'] as int,
-      color: dbData['color'] as Color? ?? Colors.black,
-      icon: dbData['icon'] as IconData? ?? Icons.error,
+      color: dbData['color'] as int,
+      icon: IconData(dbData['icon'] as int),
     );
   }
 }
-
 
 class ExpensePageModel {
   Future<List<Expense>> loadDBData() async {
@@ -43,20 +40,19 @@ class ExpensePageModel {
     }).toList();
   }
 
-  addExpenseToDb(name, amount, color, icon) async {
+  addExpenseToDb(String name, int amount, int color, IconData icon) async {
     DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.addExpenseToDb(name, amount, color, icon);
+    await dbProvider.addExpenseToDb(name, amount, color, icon.codePoint);
   }
-
 
   deleteExpenseFromDB(id) async {
     DBProvider dbProvider = DBProvider("EXPENSE");
     dbProvider.deleteExpenseFromDB(id);
   }
 
-  editExpenseInDB(id, newName, newAmount) async {
+  editExpenseInDB(id, newName, newAmount, newColor, newIcon) async {
     DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.editExpenseInDB(id, newName, newAmount);
+    dbProvider.editExpenseInDB(id, newName, newAmount, newColor, newIcon);
   }
 }
 
@@ -90,14 +86,12 @@ class DBProvider {
   _initDB() async {
     Directory documentsDirectory = await getApplicationSupportDirectory();
     String path = join(documentsDirectory.path, "$dbName.db");
-    return await openDatabase(path, version: 1,
-        onOpen: (db) {},
+    return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-          await db.execute(
-            'CREATE TABLE EXPENSE (id INTEGER PRIMARY KEY, name TEXT, amount INTEGER, color INTEGER, icon TEXT)',
-          );
-
-        });
+      await db.execute(
+        'CREATE TABLE EXPENSE (id INTEGER PRIMARY KEY, name TEXT, amount INTEGER, color INTEGER, icon INTEGER)',
+      );
+    });
   }
 
   addExpenseToDb(name, amount, color, icon) async {
@@ -109,11 +103,10 @@ class DBProvider {
     );
   }
 
-
   Future<int> _getNextId(String tableName) async {
     Database db = await database;
-    List<Map<String, dynamic>> result = await db.rawQuery(
-        "SELECT MAX(id) + 1 as id FROM $tableName");
+    List<Map<String, dynamic>> result =
+        await db.rawQuery("SELECT MAX(id) + 1 as id FROM $tableName");
     int id = result.first['id'] ?? 1;
     return id;
   }
@@ -123,13 +116,15 @@ class DBProvider {
     await db.delete('EXPENSE', where: 'id = ?', whereArgs: [id]);
   }
 
-  editExpenseInDB(id, newName, newAmount) async {
+  editExpenseInDB(id, newName, newAmount, newColor, newIcon) async {
     Database db = await database;
     await db.update(
       'EXPENSE',
       {
         'name': newName,
         'amount': newAmount,
+        'color': newColor,
+        'icon': newIcon
       },
       where: 'id = ?',
       whereArgs: [id],
