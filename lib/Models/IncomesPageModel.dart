@@ -4,7 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class Expense {
+class Income {
   int id;
   String name;
   int amount;
@@ -12,7 +12,7 @@ class Expense {
   IconData icon;
   DateTime creationDate;
 
-  Expense({
+  Income({
     required this.name,
     required this.amount,
     required this.id,
@@ -21,8 +21,8 @@ class Expense {
     required this.creationDate,
   });
 
-  factory Expense.fromDb(Map<String, dynamic> dbData) {
-    return Expense(
+  factory Income.fromDb(Map<String, dynamic> dbData) {
+    return Income(
       id: dbData['id'] as int,
       name: dbData['name'] as String,
       amount: dbData['amount'] as int,
@@ -33,44 +33,44 @@ class Expense {
   }
 }
 
-class ExpensePageModel {
-  Future<List<Expense>> loadDBData() async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
+class IncomesPageModel {
+  Future<List<Income>> loadDBData() async {
+    DBProvider dbProvider = DBProvider("Income");
     Database database = await dbProvider.database;
-    List<Map<String, dynamic>> result = await database.query('EXPENSE');
+    List<Map<String, dynamic>> result = await database.query('Income');
     return result.map((row) {
-      return Expense.fromDb(row);
+      return Income.fromDb(row);
     }).toList();
   }
-  Future<Expense> getExpenseById(int id) async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
+  Future<Income> getIncomeById(int id) async {
+    DBProvider dbProvider = DBProvider("Income");
     Database database = await dbProvider.database;
     List<Map<String, dynamic>> result = await database.query(
-      'EXPENSE',
+      'Income',
       where: 'id = ?',
       whereArgs: [id],
     );
 
     if (result.isNotEmpty) {
-      return Expense.fromDb(result.first);
+      return Income.fromDb(result.first);
     } else {
-      throw Exception('Expense not found');
+      throw Exception('Income not found');
     }
   }
 
-  addExpenseToDb(String name, int amount, int color, IconData icon,  DateTime creationDate) async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
-    await dbProvider.addExpenseToDb(name, amount, color, icon.codePoint, creationDate);
+  addIncomeToDb(String name, int amount, int color, IconData icon, DateTime creationDate) async {
+    DBProvider dbProvider = DBProvider("Income");
+    await dbProvider.addIncomeToDb(name, amount, color, icon.codePoint, creationDate);
   }
 
-  deleteExpenseFromDB(id) async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.deleteExpenseFromDB(id);
+  deleteIncomeFromDB(id) async {
+    DBProvider dbProvider = DBProvider("Income");
+    dbProvider.deleteIncomeFromDB(id);
   }
 
-  editExpenseInDB(id, String newName, int newAmount, int newColor, IconData newIcon) async {
-    DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.editExpenseInDB(id, newName, newAmount, newColor, newIcon.codePoint);
+  editIncomeInDB(id, String newName, int newAmount, int newColor, IconData newIcon) async {
+    DBProvider dbProvider = DBProvider("Income");
+    dbProvider.editIncomeInDB(id, newName, newAmount, newColor, newIcon.codePoint);
   }
 }
 
@@ -106,17 +106,17 @@ class DBProvider {
     String path = join(documentsDirectory.path, "$dbName.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute(
-        'CREATE TABLE EXPENSE (id INTEGER PRIMARY KEY, name TEXT, amount INTEGER, color INTEGER, icon INTEGER, creationDate TEXT)',
-      );
-    });
+          await db.execute(
+            'CREATE TABLE Income (id INTEGER PRIMARY KEY, name TEXT, amount INTEGER, color INTEGER, icon INTEGER, creationDate TEXT)',
+          );
+        });
   }
 
-  addExpenseToDb(name, amount, color, icon, creationDate) async {
+  addIncomeToDb(name, amount, color, icon, creationDate) async {
     Database db = await database;
-    int id = await _getNextId('EXPENSE');
+    int id = await _getNextId('Income');
     await db.rawInsert(
-      "INSERT INTO EXPENSE (id, name, amount, color, icon, creationDate) VALUES (?, ?, ?, ?, ?,?)",
+      "INSERT INTO Income (id, name, amount, color, icon,creationDate) VALUES (?, ?, ?, ?, ?,?)",
       [id, name, amount, color, icon, creationDate.toIso8601String()],
     );
   }
@@ -124,20 +124,20 @@ class DBProvider {
   Future<int> _getNextId(String tableName) async {
     Database db = await database;
     List<Map<String, dynamic>> result =
-        await db.rawQuery("SELECT MAX(id) + 1 as id FROM $tableName");
+    await db.rawQuery("SELECT MAX(id) + 1 as id FROM $tableName");
     int id = result.first['id'] ?? 1;
     return id;
   }
 
-  deleteExpenseFromDB(id) async {
+  deleteIncomeFromDB(id) async {
     Database db = await database;
-    await db.delete('EXPENSE', where: 'id = ?', whereArgs: [id]);
+    await db.delete('Income', where: 'id = ?', whereArgs: [id]);
   }
 
-  editExpenseInDB(id, newName, newAmount, newColor, newIcon) async {
+  editIncomeInDB(id, newName, newAmount, newColor, newIcon) async {
     Database db = await database;
     await db.update(
-      'EXPENSE',
+      'Income',
       {
         'name': newName,
         'amount': newAmount,

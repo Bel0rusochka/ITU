@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:itu_dev/Views/ExpensesPageView.dart';
-import 'package:itu_dev/Controllers/ExpensesPageController.dart';
+import 'package:itu_dev/Views/IncomesPageView.dart';
+import 'package:itu_dev/Controllers/IncomesPageController.dart';
 
-class NewExpensePageView extends StatefulWidget {
-  const NewExpensePageView({Key? key, required this.title}) : super(key: key);
+class NewIncomePageView extends StatefulWidget {
+  const NewIncomePageView({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<NewExpensePageView> createState() => _NewExpensePageViewState();
+  State<NewIncomePageView> createState() => _NewIncomePageViewState();
 }
 
-class _NewExpensePageViewState extends State<NewExpensePageView> {
-  final ExpensesPageController _controller = ExpensesPageController();
+class _NewIncomePageViewState extends State<NewIncomePageView> {
+  final IncomesPageController _controller = IncomesPageController();
 
   String categoryName = "";
   String amount = "";
   int selectedColor = 0xFFDBB387;
-  IconData selectedIcon = const IconData(0xe59c, fontFamily: 'MaterialIcons');
+  IconData selectedIcon = const IconData(0xf4d5, fontFamily: 'MaterialIcons');
 
   Future<void> _showErrorSnackBar(String message) async {
     final snackBar = SnackBar(
@@ -103,57 +103,9 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .pop(const IconData(0xe59c, fontFamily: 'MaterialIcons'));
+                      .pop(const IconData(0xf05d6, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe59c, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe1d5, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe1d5, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe318, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe318, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe396, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe396, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe05d, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe05d, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe054, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe054, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe06d, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe06d, fontFamily: 'MaterialIcons'),
+                child: const Icon(IconData(0xf05d6, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
@@ -167,41 +119,25 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .pop(const IconData(0xe146, fontFamily: 'MaterialIcons'));
+                      .pop(const IconData(0xf1dd, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe146, fontFamily: 'MaterialIcons'),
+                child: const Icon(IconData(0xf1dd, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .pop(const IconData(0xe15d, fontFamily: 'MaterialIcons'));
+                      .pop(const IconData(0xf4d5, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe15d, fontFamily: 'MaterialIcons'),
+                child: const Icon(IconData(0xf4d5, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context)
-                      .pop(const IconData(0xe237, fontFamily: 'MaterialIcons'));
+                      .pop(const IconData(0xe59f, fontFamily: 'MaterialIcons', matchTextDirection: true));
                 },
-                child: const Icon(IconData(0xe237, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe5e8, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe5e8, fontFamily: 'MaterialIcons'),
-                    size: 36),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe2aa, fontFamily: 'MaterialIcons'));
-                },
-                child: const Icon(IconData(0xe2aa, fontFamily: 'MaterialIcons'),
+                child: const Icon(IconData(0xe59f, fontFamily: 'MaterialIcons', matchTextDirection: true),
                     size: 36),
               ),
             ],
@@ -222,45 +158,45 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF575093),
-          elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Text(
-              widget.title,
-              style: const TextStyle(fontSize: 28, color: Colors.white),
-            ),
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Text(
+            widget.title,
+            style: const TextStyle(fontSize: 28, color: Colors.white),
           ),
-          centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-          actions: <Widget>[
-      Padding(
-      padding: const EdgeInsets.only(top: 17.0),
-      child: TextButton(
-        child: const Text(
-          'Save',
-          style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
         ),
-        onPressed: () {
-          if (categoryName.isEmpty || amount.isEmpty) {
-            _showErrorSnackBar('Please fill in both name and amount.');
-          } else {
-            DateTime currentDate = DateTime.now();
-            _controller.save(
-                categoryName, int.parse(amount), selectedColor, selectedIcon, currentDate);
-            _controller.gotoPage(
-                const ExpensesPageView(title: "Expenses"), context);
-          }
-        },
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        actions: <Widget>[
+          Padding(
+              padding: const EdgeInsets.only(top: 17.0),
+              child: TextButton(
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
+                ),
+                onPressed: () {
+                  if (categoryName.isEmpty || amount.isEmpty) {
+                    _showErrorSnackBar('Please fill in both name and amount.');
+                  } else {
+                    DateTime currentDate = DateTime.now();
+                    _controller.save(
+                        categoryName, int.parse(amount), selectedColor, selectedIcon,currentDate);
+                    _controller.gotoPage(
+                        const IncomesPageView(title: "Incomes"), context);
+                  }
+                },
+              )
           )
-        )
         ],
       ),
       body: SingleChildScrollView(

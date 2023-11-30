@@ -20,8 +20,7 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
   late TextEditingController nameController;
   late TextEditingController amountController;
   int selectedColor = 0xFFDBB387;
-  IconData selectedIcon =
-  const IconData(0xe59c, fontFamily: 'MaterialIcons');
+  IconData selectedIcon = const IconData(0xe59c, fontFamily: 'MaterialIcons');
 
   @override
   void initState() {
@@ -31,7 +30,20 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
     amountController =
         TextEditingController(text: widget.expense.amount.toString());
     selectedColor = widget.expense.color;
-    selectedIcon = widget.expense.icon;
+    selectedIcon = IconData(widget.expense.icon.codePoint, fontFamily: 'MaterialIcons');
+  }
+
+  Future<void> _showErrorSnackBar(String message) async {
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Colors.red,
+      duration: const Duration(seconds: 3),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   Future<void> chooseColor() async {
@@ -210,6 +222,14 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
                     IconData(0xe5e8, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(const IconData(0xe2aa, fontFamily: 'MaterialIcons'));
+                },
+                child: const Icon(IconData(0xe2aa, fontFamily: 'MaterialIcons'),
+                    size: 36),
+              ),
             ],
           ),
         );
@@ -255,14 +275,19 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
                 style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
               ),
               onPressed: () {
-                _controller.edit(
-                  widget.expense.id,
-                  nameController.text,
-                  int.parse(amountController.text),
-                  selectedColor,
-                  selectedIcon,
-                );
-                _controller.gotoPage(const ExpensesPageView(title: "Expenses"), context);
+                if (nameController.text.isEmpty || amountController.text.isEmpty) {
+                  _showErrorSnackBar('Please fill in both name and amount.');
+                } else {
+                  _controller.edit(
+                    widget.expense.id,
+                    nameController.text,
+                    int.parse(amountController.text),
+                    selectedColor,
+                    selectedIcon,
+                  );
+                  _controller.gotoPage(
+                      const ExpensesPageView(title: "Expenses"), context);
+                }
               },
             ),
           )

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Views/BalancePageView.dart';
 import 'package:itu_dev/Controllers/SpecificWalletPageController.dart';
+import '../Models/ExpensesPageModel.dart';
+import '../Models/IncomesPageModel.dart';
 import 'BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Views/ExpensesPageView.dart';
 
+import 'IncomesPageView.dart';
+
 class SpecificWalletView extends StatefulWidget {
-  const SpecificWalletView({Key? key, required this.title, required this.balance, this.expense, this.income}) : super(key: key);
+  const SpecificWalletView({
+    Key? key,
+    required this.title,
+    required this.balance,
+  }) : super(key: key);
 
   final String title;
   final dynamic balance;
-  final dynamic expense;
-  final dynamic income;
 
   @override
   State<SpecificWalletView> createState() => _SpecificWalletViewState();
@@ -18,10 +24,48 @@ class SpecificWalletView extends StatefulWidget {
 
 class _SpecificWalletViewState extends State<SpecificWalletView> {
   final WalletPageController _controller = WalletPageController();
+  final ExpensePageModel _expenseModel = ExpensePageModel();
+  final IncomesPageModel _incomesModel = IncomesPageModel();
+
+  @override
+  void initState() {
+    super.initState();
+    loadWeekData();
+  }
+
+  Future<void> loadWeekData() async {
+    DateTime now = DateTime.now();
+    DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+    DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+
+    // Load and calculate expenses for the current week
+    List<Expense> expenses = await _expenseModel.loadDBData();
+    int expenseSum = expenses
+        .where((expense) =>
+    expense.creationDate.isAfter(startOfWeek) &&
+        expense.creationDate.isBefore(endOfWeek))
+        .fold(0, (prev, expense) => prev + expense.amount);
+
+    // Load and calculate incomes for the current week
+    List<Income> incomes = await _incomesModel.loadDBData();
+    int incomeSum = incomes
+        .where((income) =>
+    income.creationDate.isAfter(startOfWeek) &&
+        income.creationDate.isBefore(endOfWeek))
+        .fold(0, (prev, income) => prev + income.amount);
+
+    setState(() {
+      expenseTotal = expenseSum;
+      incomeTotal = incomeSum;
+    });
+  }
+
+  int expenseTotal = 0;
+  int incomeTotal = 0;
 
   @override
   Widget build(BuildContext context) {
-    Color color = const Color(0xFF575093);
+    int balance = incomeTotal - expenseTotal;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
@@ -43,7 +87,7 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.balance.toString(),
+                  balance.toString(),
                   style: const TextStyle(
                     fontSize: 20,
                     color: Colors.white,
@@ -100,7 +144,7 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
                                 ),
                               ),
                               Text(
-                                widget.expense.toString(),
+                                expenseTotal.toString(),
                                 style: const TextStyle(
                                   color: Colors.black,
                                 ),
@@ -119,6 +163,10 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
                 const SizedBox(width: 20),
                 Expanded(
                   flex: 3,
+                  child: GestureDetector(
+                    onTap: () {
+                      _controller.gotoPage(const IncomesPageView(title: "Incomes"), context);
+                    },
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFF62CB99),
@@ -137,7 +185,7 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
                               ),
                             ),
                             Text(
-                              widget.income.toString(),
+                              incomeTotal.toString(),
                               style: const TextStyle(
                                 color: Colors.black,
                               ),
@@ -151,6 +199,7 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
                       ],
                     ),
                   ),
+                ),
                 ),
                 const SizedBox(width: 20),
               ],
