@@ -39,6 +39,21 @@ class ExpensePageModel {
       return Expense.fromDb(row);
     }).toList();
   }
+  Future<Expense> getExpenseById(int id) async {
+    DBProvider dbProvider = DBProvider("EXPENSE");
+    Database database = await dbProvider.database;
+    List<Map<String, dynamic>> result = await database.query(
+      'EXPENSE',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (result.isNotEmpty) {
+      return Expense.fromDb(result.first);
+    } else {
+      throw Exception('Expense not found');
+    }
+  }
 
   addExpenseToDb(String name, int amount, int color, IconData icon) async {
     DBProvider dbProvider = DBProvider("EXPENSE");
@@ -50,9 +65,9 @@ class ExpensePageModel {
     dbProvider.deleteExpenseFromDB(id);
   }
 
-  editExpenseInDB(id, newName, newAmount, newColor, newIcon) async {
+  editExpenseInDB(id, String newName, int newAmount, int newColor, IconData newIcon) async {
     DBProvider dbProvider = DBProvider("EXPENSE");
-    dbProvider.editExpenseInDB(id, newName, newAmount, newColor, newIcon);
+    dbProvider.editExpenseInDB(id, newName, newAmount, newColor, newIcon.codePoint);
   }
 }
 

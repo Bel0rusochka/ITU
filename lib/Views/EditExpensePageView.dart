@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:itu_dev/Views/ExpensesPageView.dart';
 import 'package:itu_dev/Controllers/ExpensesPageController.dart';
+import 'package:itu_dev/Models/ExpensesPageModel.dart';
 
-class NewExpensePageView extends StatefulWidget {
-  const NewExpensePageView({Key? key, required this.title}) : super(key: key);
+import 'ExpensesPageView.dart';
 
-  final String title;
+class EditExpensePageView extends StatefulWidget {
+  final Expense expense;
+
+  const EditExpensePageView({Key? key, required this.expense})
+      : super(key: key);
 
   @override
-  State<NewExpensePageView> createState() => _NewExpensePageViewState();
+  State<EditExpensePageView> createState() => _EditExpensePageViewState();
 }
 
-class _NewExpensePageViewState extends State<NewExpensePageView> {
+class _EditExpensePageViewState extends State<EditExpensePageView> {
   final ExpensesPageController _controller = ExpensesPageController();
 
-  String categoryName = "";
-  String amount = "";
+  late TextEditingController nameController;
+  late TextEditingController amountController;
   int selectedColor = 0xFFDBB387;
-  IconData selectedIcon = const IconData(0xe59c, fontFamily: 'MaterialIcons');
+  IconData selectedIcon =
+  const IconData(0xe59c, fontFamily: 'MaterialIcons');
+
+  @override
+  void initState() {
+    super.initState();
+
+    nameController = TextEditingController(text: widget.expense.name);
+    amountController =
+        TextEditingController(text: widget.expense.amount.toString());
+    selectedColor = widget.expense.color;
+    selectedIcon = widget.expense.icon;
+  }
 
   Future<void> chooseColor() async {
     int? pickedColor = await showDialog<int>(
@@ -89,98 +104,110 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe59c, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe59c, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe59c, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe59c, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe1d5, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe1d5, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe1d5, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe1d5, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe318, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe318, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe318, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe318, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe396, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe396, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe396, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe396, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe05d, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe05d, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe05d, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe05d, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe054, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe054, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe054, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe054, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe06d, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe06d, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe06d, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe06d, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe0b2, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe0b2, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe0b2, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe0b2, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe146, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe146, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe146, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe146, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe15d, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe15d, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe15d, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe15d, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe237, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe237, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe237, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe237, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context)
-                      .pop(const IconData(0xe5e8, fontFamily: 'MaterialIcons'));
+                  Navigator.of(context).pop(
+                      const IconData(0xe5e8, fontFamily: 'MaterialIcons'));
                 },
-                child: const Icon(IconData(0xe5e8, fontFamily: 'MaterialIcons'),
+                child: const Icon(
+                    IconData(0xe5e8, fontFamily: 'MaterialIcons'),
                     size: 36),
               ),
             ],
@@ -201,40 +228,44 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF575093),
-          elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Text(
-              widget.title,
-              style: const TextStyle(fontSize: 28, color: Colors.white),
-            ),
+        elevation: 0,
+        title: const Padding(
+          padding: EdgeInsets.only(top: 20.0),
+          child: Text(
+            'Edit Expense',
+            style: TextStyle(fontSize: 28, color: Colors.white),
           ),
-          centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+        ),
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 17.0),
+            child: TextButton(
+              child: const Text(
+                'Save',
+                style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
+              ),
               onPressed: () {
-                Navigator.of(context).pop();
+                _controller.edit(
+                  widget.expense.id,
+                  nameController.text,
+                  int.parse(amountController.text),
+                  selectedColor,
+                  selectedIcon,
+                );
+                _controller.gotoPage(const ExpensesPageView(title: "Expenses"), context);
               },
             ),
-          ),
-          actions: <Widget>[
-      Padding(
-      padding: const EdgeInsets.only(top: 17.0),
-      child: TextButton(
-        child: const Text(
-          'Save',
-          style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
-        ),
-        onPressed: () {
-              _controller.save(
-                  categoryName, int.parse(amount), selectedColor, selectedIcon);
-              _controller.gotoPage(
-                  const ExpensesPageView(title: "Expenses"), context);
-            },
           )
-        )
         ],
       ),
       body: SingleChildScrollView(
@@ -243,11 +274,7 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-                onChanged: (text) {
-                  setState(() {
-                    categoryName = text;
-                  });
-                },
+                controller: nameController,
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   labelText: 'Name',
@@ -265,11 +292,7 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-                onChanged: (text) {
-                  setState(() {
-                    amount = text;
-                  });
-                },
+                controller: amountController,
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   labelText: 'Amount',

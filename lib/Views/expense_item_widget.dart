@@ -4,7 +4,7 @@ class ExpenseItemWidget extends StatelessWidget {
   final int color;
   final String name;
   final int amount;
-  final IconData icon;
+  final int icon;
 
   const ExpenseItemWidget({
     super.key,
@@ -18,20 +18,34 @@ class ExpenseItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Container(
-        width: 36.0,
-        height: 36.0,
+        width: 48.0,
+        height: 48.0,
         decoration: BoxDecoration(
           color: Color(color),
           shape: BoxShape.circle,
         ),
         child: Icon(
-          icon,
-          color: Colors.white,
+          IconData(icon, fontFamily: 'MaterialIcons'),
+          color: Colors.black,
           size: 24.0,
         ),
       ),
-      title: Text(name),
-      trailing: Text('\$${amount.toString()}'),
+      title: Text(
+        name,
+        style: const TextStyle(
+          color: Colors.white,
+          fontFamily: 'MiriamLibre',
+          fontSize: 20.0,
+        ),
+      ),
+      trailing: Text(
+        amount.toString(),
+        style: const TextStyle(
+          color: Colors.white,
+          fontFamily: 'MiriamLibre',
+          fontSize: 20.0,
+        ),
+      ),
     );
   }
 }

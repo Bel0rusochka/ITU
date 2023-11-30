@@ -14,6 +14,7 @@ class ExpensesPageController extends ControllerMVC {
 
   ExpensesPageController._();
 
+
   Future<void> addExpenseToDb(
       String name, int amount, int color, IconData icon) async {
     await _model.addExpenseToDb(name, amount, color, icon);

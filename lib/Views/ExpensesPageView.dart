@@ -5,6 +5,7 @@ import 'package:itu_dev/Views/NewExpensePageView.dart';
 import 'package:itu_dev/Views/SpecificWalletView.dart';
 import 'package:itu_dev/Views/expense_item_widget.dart';
 import '../Models/ExpensesPageModel.dart';
+import 'ExpenseDetailPageView.dart';
 
 class ExpensesPageView extends StatefulWidget {
   const ExpensesPageView({Key? key, required this.title}) : super(key: key);
@@ -28,28 +29,8 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
     return AppBar(
       toolbarHeight: 120,
       backgroundColor: const Color(0xFF575093),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.add, color: Colors.white),
-          onPressed: navigateToNewExpensePage,
-        ),
-      ],
-      flexibleSpace: const Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FlexibleSpaceBar(
-            title: Text(
-              "Expenses",
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) =>
@@ -57,8 +38,23 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
           ));
         },
       ),
+      title: const Text(
+        "Expenses",
+        style: TextStyle(
+          fontSize: 32,
+          color: Colors.white,
+        ),
+      ),
+      centerTitle: false,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.add, color: Colors.white),
+          onPressed: navigateToNewExpensePage,
+        ),
+      ],
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,30 +70,39 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
             );
           } else if (snapshot.hasError) {
             return const Center(
-              child: Text('Error loading expenses. Please try again later.'),
+              child: Text(
+                  'Error loading expenses. Please try again later.',
+                  style: TextStyle(color: Colors.white),),
             );
           } else if (snapshot.hasData && snapshot.data != null) {
             if (snapshot.data!.isEmpty) {
               return const Center(
-                child: Text('No data available'),
+                child: Text(''),
               );
             } else {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   final expense = snapshot.data![index];
-                  return ExpenseItemWidget(
-                    color: expense.color,
-                    name: expense.name,
-                    amount: expense.amount,
-                    icon: expense.icon,
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ExpenseDetailsPageView(expense: expense),
+                      ));
+                    },
+                    child: ExpenseItemWidget(
+                      color: expense.color,
+                      name: expense.name,
+                      amount: expense.amount,
+                      icon: expense.icon.codePoint,
+                    ),
                   );
                 },
               );
             }
           } else {
             return const Center(
-              child: Text('No data available'),
+              child: Text(''),
             );
           }
         },
