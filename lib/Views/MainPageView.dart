@@ -1,10 +1,16 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: Main view displaying various financial indicators and goals.
+===========================================================================
+*/
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/GoalsPageController.dart';
 import 'package:itu_dev/Controllers/MainPageController.dart';
 import 'package:itu_dev/Controllers/DebtPageController.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Views/NotificationsPageView.dart';
-import 'package:itu_dev/Views/NotificationsPageView.dart';
+
 
 class MainPageView extends StatefulWidget{
   const MainPageView({super.key, required this.title});
@@ -21,6 +27,7 @@ class _MainPageViewState extends State<MainPageView>{
 
   @override
   Widget build(BuildContext context) {
+    // Configuration for the appearance of the financial indicator bubbles
     Color color = Colors.white;
     var wightBubble = 372.0;
     var hightBubble = 171.0;
@@ -29,6 +36,7 @@ class _MainPageViewState extends State<MainPageView>{
         toolbarHeight: 120,
         title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         actions: <Widget>[
+          // Button to navigate to the notifications page
           IconButton(
               icon: const Icon(Icons.notifications, color: Colors.white),
               iconSize: 35,

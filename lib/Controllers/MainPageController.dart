@@ -1,3 +1,10 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: Controller for main page
+===========================================================================
+*/
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Views/DebtPageView.dart';
@@ -14,6 +21,7 @@ class MainPageController extends ControllerMVC{
   static MainPageController _this = MainPageController._();
   MainPageController._();
 
+  //use for navigate from main page for other
   void gotoPage(pageObj, context){
     Navigator.pushReplacement(
       context,
@@ -21,6 +29,7 @@ class MainPageController extends ControllerMVC{
     );
   }
 
+  //draw all debt on the main page
   GestureDetector getDebtPartMain(hightBubble, wightBubble, color, controllerDebt, context){
     return GestureDetector(
         onTap: (){controllerDebt.gotoPage(const DebtPageView(title: "My Debt"), context);},
@@ -66,7 +75,7 @@ class MainPageController extends ControllerMVC{
       );
   }
 
-
+  //draw all goal on the main page
   GestureDetector getGoalPartMain(hightBubble, wightBubble, color, controllerGoal, context){
     return GestureDetector(
         onTap: (){controllerGoal.gotoPage(const GoalsPageView(title: "My Goals"), context);},

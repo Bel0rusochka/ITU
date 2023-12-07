@@ -1,3 +1,10 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: Controller for notification page
+===========================================================================
+*/
+
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Models/NotificationPageModel.dart' as CustomNotification;
@@ -13,6 +20,7 @@ class NotificationPageController extends ControllerMVC{
   static NotificationPageController _this = NotificationPageController._();
   NotificationPageController._();
 
+  //draw all notification from db like a bubble
   Future<Column> drawBubble(context, colorAlfa) async{
     List<Widget> widgets;
     List<CustomNotification.Notification> notifications = await _model.loadDBData();
@@ -22,8 +30,8 @@ class NotificationPageController extends ControllerMVC{
         key: UniqueKey(),
         background: Container(
           color: Colors.red,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 16),
+          child: const Padding(
+            padding: EdgeInsets.only(right: 16),
             child: Align(
               alignment: Alignment.centerRight,
               child: Icon(Icons.delete, color: Colors.white),
@@ -51,7 +59,6 @@ class NotificationPageController extends ControllerMVC{
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: widgets);
   }
 
-
   void gotoPage(pageObj, context){
     Navigator.pushReplacement(
       context,
@@ -59,8 +66,8 @@ class NotificationPageController extends ControllerMVC{
     );
   }
 
+  //draw container for debt
   Container drawContainerDebt(height,width, colorAlfa, notification){
-
     return Container(
       height: height,
       width: width,
@@ -99,10 +106,12 @@ class NotificationPageController extends ControllerMVC{
     );
   }
 
+  //save notification to db
   void save(id, title, body){
     _model.addNotificationToDb(id, title, body);
   }
 
+  //delete notification from db
   void dell(id){
     _model.dellNotificationFromDB(id);
   }

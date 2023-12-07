@@ -1,3 +1,10 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: View for managing debts, allowing users to view, add, and interact with debts.
+===========================================================================
+*/
+
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Views/DebtAddPageView.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
@@ -15,6 +22,7 @@ class DebtPageView extends StatefulWidget {
 class _DebtPageViewState extends State<DebtPageView>{
   final DebtPageController _controller = DebtPageController();
 
+  // Method to refresh the view when triggered
   Future<void> _refresh() async {
     setState(() {});
   }
@@ -26,6 +34,7 @@ class _DebtPageViewState extends State<DebtPageView>{
         toolbarHeight: 120,
         title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         actions: <Widget>[
+          // Button to navigate to the debt addition page
           IconButton(
               icon: const Icon(Icons.add, color: Colors.white),
               iconSize: 35,
@@ -36,13 +45,14 @@ class _DebtPageViewState extends State<DebtPageView>{
         ],
       ),
       body: RefreshIndicator(
-
+        // Pull-to-refresh indicator
         onRefresh: _refresh,
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: SizedBox(
             width: double.infinity,
             child: FutureBuilder<Column?>(
+              // Asynchronously build the column of debts
               future: _controller.drawBubble(context, 255),
               builder: (context, AsyncSnapshot<Column?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

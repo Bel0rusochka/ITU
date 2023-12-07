@@ -1,3 +1,10 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: Widget for the Bottom Navigation Bar, containing icons for different app sections
+===========================================================================
+*/
+
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/BottomNavigationBarWidgetController.dart';
 import 'package:itu_dev/Views/TipsPageView.dart';
@@ -6,12 +13,13 @@ import 'package:itu_dev/Views/BalancePageView.dart';
 import 'package:itu_dev/Views/GoalsPageView.dart';
 import 'package:itu_dev/Views/DebtPageView.dart';
 
-class BottomNavigationBarWidgetView extends StatelessWidget{
+class BottomNavigationBarWidgetView extends StatelessWidget {
   BottomNavigationBarWidgetView({super.key});
+
   final BottomNavigationBarWidgetController _controller = BottomNavigationBarWidgetController();
 
-  Image _getImage(path){
-
+  // Method to create an Image widget from the provided asset path
+  Image _getImage(path) {
     return Image.asset(
       path,
       width: 45,
@@ -20,7 +28,7 @@ class BottomNavigationBarWidgetView extends StatelessWidget{
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return BottomAppBar(
       clipBehavior: Clip.none,
       height: 75,
@@ -29,20 +37,23 @@ class BottomNavigationBarWidgetView extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          // Tips button
           IconButton(
-              icon: _getImage('images/tips.png'),
-              iconSize: 67,
-              onPressed: (){
-               _controller.changePage(const TipsPageView(title: "My Financial advice"), context);
-              }
-          ), //tips button
+            icon: _getImage('images/tips.png'),
+            iconSize: 67,
+            onPressed: () {
+              _controller.changePage(const TipsPageView(title: "My Financial advice"), context);
+            },
+          ),
+          // Balance button
           IconButton(
-              icon: _getImage('images/balance.png'),
-              iconSize: 55,
-              onPressed: (){
-                _controller.changePage(const BalancePageView(title: 'My Balance'), context);
-              }
-          ),//balance button
+            icon: _getImage('images/balance.png'),
+            iconSize: 55,
+            onPressed: () {
+              _controller.changePage(const BalancePageView(title: 'My Balance'), context);
+            },
+          ),
+          // Home button
           Container(
             width: 67,
             height: 67,
@@ -60,21 +71,23 @@ class BottomNavigationBarWidgetView extends StatelessWidget{
                 color: Colors.black,
               ),
             ),
-          ),// Main button
+          ),
+          // Goals button
           IconButton(
-              icon: _getImage('images/goal.png'),
-              iconSize: 55,
-              onPressed: (){
-                _controller.changePage(const GoalsPageView(title: 'My Goals'), context);
-              }
-          ),// goals button
+            icon: _getImage('images/goal.png'),
+            iconSize: 55,
+            onPressed: () {
+              _controller.changePage(const GoalsPageView(title: 'My Goals'), context);
+            },
+          ),
+          // Debt button
           IconButton(
-              icon: _getImage('images/debt.png'),
-              iconSize: 55,
-              onPressed: (){
-                _controller.changePage(const DebtPageView(title: 'My Debt'), context);
-              }
-          ), // debt button
+            icon: _getImage('images/debt.png'),
+            iconSize: 55,
+            onPressed: () {
+              _controller.changePage(const DebtPageView(title: 'My Debt'), context);
+            },
+          ),
         ],
       ),
     );

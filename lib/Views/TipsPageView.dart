@@ -1,7 +1,14 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: Tips Page View
+===========================================================================
+*/
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Controllers/TipsPageController.dart';
 
+// TipsPageView class represents the main widget for the Tips page
 class TipsPageView extends StatefulWidget {
   const TipsPageView({super.key, required this.title});
 
@@ -11,9 +18,12 @@ class TipsPageView extends StatefulWidget {
   State<TipsPageView> createState() => _TipsPageViewState();
 }
 
+// _TipsPageViewState class represents the state of the TipsPageView
 class _TipsPageViewState extends State<TipsPageView> {
   final TipsPageController _controller = TipsPageController();
   String chooseCategory = "All";
+
+  // Asynchronous method to draw the advice bubbles based on the selected category
   Future<Column?> _drawBubble(chooseCategory) async {
     try {
       return await _controller.drawBubble(context, chooseCategory);
@@ -23,11 +33,8 @@ class _TipsPageViewState extends State<TipsPageView> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    print(21);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
@@ -84,4 +91,3 @@ class _TipsPageViewState extends State<TipsPageView> {
     );
   }
 }
-

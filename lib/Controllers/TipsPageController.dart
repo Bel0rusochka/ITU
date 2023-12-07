@@ -1,3 +1,9 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: Controller for tips page
+===========================================================================
+*/
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -13,6 +19,7 @@ class TipsPageController extends ControllerMVC{
   static TipsPageController _this = TipsPageController._();
   TipsPageController._();
 
+  //method to get color based on category of tip
   Color getBackgroundColor(String category) {
     switch (category) {
       case 'Useful':
@@ -24,8 +31,8 @@ class TipsPageController extends ControllerMVC{
     }
   }
 
+  //draw bubble of all tips which are in db
   Future<Column> drawBubble(context, chooseCategory) async{
-    print(chooseCategory);
     List<Widget> widgets;
     List<Tip> tips = await _model.loadDBData();
 
@@ -84,6 +91,7 @@ class TipsPageController extends ControllerMVC{
     );
   }
 
+  //get random tip use to get notification
   Future<Tip> getRandomTip() async {
     final TipsPageModel model = TipsPageModel();
     List<Tip> tips = await model.loadDBData();
@@ -94,6 +102,7 @@ class TipsPageController extends ControllerMVC{
     return tips[randomIndex];
   }
 
+  //edit category of tip
   void editCategory(title, time, text, newCategory){
     _model.editTipCategory(title, time, text, newCategory);
   }

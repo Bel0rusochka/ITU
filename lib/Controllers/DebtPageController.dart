@@ -1,3 +1,9 @@
+/*
+===========================================================================
+  Author: xkulin01
+  Description: Controller for debt page
+===========================================================================
+*/
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Models/DebtPageModel.dart';
