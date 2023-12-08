@@ -24,15 +24,14 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed:  (){_controller.gotoPage(const BalancePageView(title: "My Balance"), context);},
         ),
         actions: <Widget>[
           TextButton(
-              child: const Text('Save', style: TextStyle(color: Colors.lightBlue, fontSize: 20)),
+              child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
                 _controller.saveBalance(name, amount);
                 _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
@@ -56,6 +55,7 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
+                keyboardType: TextInputType.number,
                 onChanged: (text){amount = text;} ,
                 decoration: const InputDecoration(
                   labelText: 'Amount',
@@ -63,7 +63,6 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
                 ),
               ),
             ),
-
           ],
         ),
       ),

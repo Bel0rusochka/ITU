@@ -88,7 +88,7 @@ class BalancePageController extends ControllerMVC {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        color: Color.fromARGB(colorAlfa, 128, 197, 215),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(

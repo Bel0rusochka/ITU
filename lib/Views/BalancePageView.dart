@@ -15,7 +15,7 @@ class BalancePageView extends StatefulWidget {
 
 class _BalancePageViewState extends State<BalancePageView> {
   final BalancePageController _controller = BalancePageController();
-  Color color = const Color.fromARGB(255, 128, 197, 215);
+  Color color = Colors.white;
   var wightBubble = 372.0;
   var heightBubble = 70.0;
   late num totalAmount; // Declare totalAmount as a late variable
@@ -36,8 +36,7 @@ class _BalancePageViewState extends State<BalancePageView> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        backgroundColor: Colors.lightBlue.shade50,
-        title: Text(widget.title, style: const TextStyle(fontSize: 28)),
+        title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
