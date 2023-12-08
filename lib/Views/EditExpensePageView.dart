@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/ExpensesPageController.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Models/ExpensesPageModel.dart';
 
 import 'ExpensesPageView.dart';
 
 class EditExpensePageView extends StatefulWidget {
   final Expense expense;
+  final int walletId;
+  final Balance balance;
 
-  const EditExpensePageView({Key? key, required this.expense})
+  const EditExpensePageView({Key? key, required this.expense, required this.walletId, required this.balance})
       : super(key: key);
 
   @override
@@ -286,7 +289,7 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
                     selectedIcon,
                   );
                   _controller.gotoPage(
-                      const ExpensesPageView(title: "Expenses"), context);
+                      ExpensesPageView(title: "Expenses", balance: widget.balance, walletId: widget.walletId), context);
                 }
               },
             ),

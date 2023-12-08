@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Models/IncomesPageModel.dart';
 import '../Controllers/IncomesPageController.dart';
 import 'BottomNavigationBarWidgetView.dart';
@@ -7,8 +8,10 @@ import 'IncomesPageView.dart';
 
 class WithdrawIncomePageView extends StatefulWidget {
   final Income income;
+  final int walletId;
+  final Balance balance;
 
-  const WithdrawIncomePageView({Key? key, required this.income}) : super(key: key);
+  const WithdrawIncomePageView({Key? key, required this.income,required this.walletId, required this.balance}) : super(key: key);
 
   @override
   State<WithdrawIncomePageView> createState() => _WithdrawPageViewState();
@@ -56,7 +59,7 @@ class _WithdrawPageViewState extends State<WithdrawIncomePageView> {
                   _controller.edit(widget.income.id, widget.income.name, amountToWithdraw, widget.income.color, widget.income.icon);
                   _controller.gotoPage(Builder(
                       builder: (context) {
-                        return const IncomesPageView(title: "Incomes");
+                        return IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,);
                       }
                   ), context);
                 }

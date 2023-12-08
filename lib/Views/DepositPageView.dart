@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Models/ExpensesPageModel.dart';
 import '../Controllers/ExpensesPageController.dart';
 import 'BottomNavigationBarWidgetView.dart';
@@ -7,8 +8,10 @@ import 'ExpensesPageView.dart';
 
 class DepositPageView extends StatefulWidget {
   final Expense expense;
+  final int walletId;
+  final Balance balance;
 
-  const DepositPageView({Key? key, required this.expense}) : super(key: key);
+  const DepositPageView({Key? key, required this.expense, required this.walletId, required this.balance}) : super(key: key);
 
   @override
   State<DepositPageView> createState() => _DepositPageViewState();
@@ -63,7 +66,7 @@ class _DepositPageViewState extends State<DepositPageView>{
                   );
                   _controller.gotoPage(Builder(
                     builder: (context) {
-                      return const ExpensesPageView(title: "Expenses");
+                      return ExpensesPageView(title: "Expenses", balance: widget.balance, walletId: widget.walletId);
                     }
                   ), context);
                 }

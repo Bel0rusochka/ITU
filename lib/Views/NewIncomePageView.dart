@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/IncomesPageView.dart';
 import 'package:itu_dev/Controllers/IncomesPageController.dart';
 
 class NewIncomePageView extends StatefulWidget {
-  const NewIncomePageView({Key? key, required this.title}) : super(key: key);
+  const NewIncomePageView({Key? key, required this.title, required this.walletId, required this.balance}) : super(key: key);
 
   final String title;
+  final int walletId;
+  final Balance balance;
 
   @override
   State<NewIncomePageView> createState() => _NewIncomePageViewState();
@@ -190,9 +193,9 @@ class _NewIncomePageViewState extends State<NewIncomePageView> {
                   } else {
                     DateTime currentDate = DateTime.now();
                     _controller.save(
-                        categoryName, int.parse(amount), selectedColor, selectedIcon,currentDate);
+                        widget.walletId, categoryName, int.parse(amount), selectedColor, selectedIcon,currentDate);
                     _controller.gotoPage(
-                        const IncomesPageView(title: "Incomes"), context);
+                        IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,), context);
                   }
                 },
               )

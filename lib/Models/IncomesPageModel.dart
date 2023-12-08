@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 
 class Income {
   int id;
+  int walletId;
   String name;
   int amount;
   int color;
@@ -13,6 +14,7 @@ class Income {
   DateTime creationDate;
 
   Income({
+    required this.walletId,
     required this.name,
     required this.amount,
     required this.id,
@@ -24,6 +26,7 @@ class Income {
   factory Income.fromDb(Map<String, dynamic> dbData) {
     return Income(
       id: dbData['id'] as int,
+      walletId: dbData['walletId'] as int,
       name: dbData['name'] as String,
       amount: dbData['amount'] as int,
       color: dbData['color'] as int,
@@ -58,9 +61,9 @@ class IncomesPageModel {
     }
   }
 
-  addIncomeToDb(String name, int amount, int color, IconData icon, DateTime creationDate) async {
+  addIncomeToDb(int walletId, String name, int amount, int color, IconData icon, DateTime creationDate) async {
     DBProvider dbProvider = DBProvider("Income");
-    await dbProvider.addIncomeToDb(name, amount, color, icon.codePoint, creationDate);
+    await dbProvider.addIncomeToDb(walletId, name, amount, color, icon.codePoint, creationDate);
   }
 
   deleteIncomeFromDB(id) async {
@@ -107,17 +110,17 @@ class DBProvider {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
           await db.execute(
-            'CREATE TABLE Income (id INTEGER PRIMARY KEY, name TEXT, amount INTEGER, color INTEGER, icon INTEGER, creationDate TEXT)',
+            'CREATE TABLE Income (id INTEGER PRIMARY KEY, walletId INTEGER, name TEXT, amount INTEGER, color INTEGER, icon INTEGER, creationDate TEXT)',
           );
         });
   }
 
-  addIncomeToDb(name, amount, color, icon, creationDate) async {
+  addIncomeToDb(walletId, name, amount, color, icon, creationDate) async {
     Database db = await database;
     int id = await _getNextId('Income');
     await db.rawInsert(
-      "INSERT INTO Income (id, name, amount, color, icon,creationDate) VALUES (?, ?, ?, ?, ?,?)",
-      [id, name, amount, color, icon, creationDate.toIso8601String()],
+      "INSERT INTO Income (id, walletId, name, amount, color, icon,creationDate) VALUES (?, ?, ?, ?, ?, ?,?)",
+      [id, walletId, name, amount, color, icon, creationDate.toIso8601String()],
     );
   }
 

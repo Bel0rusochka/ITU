@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/ExpensesPageController.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Views/NewExpensePageView.dart';
 import 'package:itu_dev/Views/SpecificWalletView.dart';
@@ -8,9 +9,11 @@ import '../Models/ExpensesPageModel.dart';
 import 'ExpenseDetailPageView.dart';
 
 class ExpensesPageView extends StatefulWidget {
-  const ExpensesPageView({Key? key, required this.title}) : super(key: key);
+  const ExpensesPageView({Key? key, required this.title, required this.walletId, required this.balance}) : super(key: key);
 
   final String title;
+  final int walletId;
+  final Balance balance;
 
   @override
   State<ExpensesPageView> createState() => _ExpensesPageViewState();
@@ -18,10 +21,25 @@ class ExpensesPageView extends StatefulWidget {
 
 class _ExpensesPageViewState extends State<ExpensesPageView> {
   final ExpensesPageController _controller = ExpensesPageController();
+  final ExpensePageModel _expenseModel = ExpensePageModel();
+  List<Expense> _expenses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadExpenses();
+  }
+
+  Future<void> loadExpenses() async {
+    List<Expense> allExpenses = await _expenseModel.loadDBData();
+    setState(() {
+      _expenses = allExpenses.where((expense) => expense.walletId == widget.walletId).toList();
+    });
+  }
 
   void navigateToNewExpensePage() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const NewExpensePageView(title: 'New Expense'),
+      builder: (context) => NewExpensePageView(title: 'New Expense', balance: widget.balance, walletId: widget.walletId),
     ));
   }
 
@@ -34,7 +52,7 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) =>
-            const SpecificWalletView(title: 'PayPal', balance: null),
+                SpecificWalletView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
           ));
         },
       ),
@@ -55,56 +73,27 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: FutureBuilder<List<Expense>>(
-        key: UniqueKey(),
-        future: _controller.drawBubble(context, 255),
-        builder: (context, AsyncSnapshot<List<Expense>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text(
-                  'Error loading expenses. Please try again later.',
-                  style: TextStyle(color: Colors.white),),
-            );
-          } else if (snapshot.hasData && snapshot.data != null) {
-            if (snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text(''),
-              );
-            } else {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  final expense = snapshot.data![index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ExpenseDetailsPageView(expense: expense),
-                      ));
-                    },
-                    child: ExpenseItemWidget(
-                      color: expense.color,
-                      name: expense.name,
-                      amount: expense.amount,
-                      icon: expense.icon.codePoint,
-                    ),
-                  );
-                },
-              );
-            }
-          } else {
-            return const Center(
-              child: Text(''),
-            );
-          }
+      body: ListView.builder(
+        itemCount: _expenses.length,
+        itemBuilder: (context, index) {
+          final expense = _expenses[index];
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ExpenseDetailsPageView(expense: expense, balance: widget.balance, walletId: widget.walletId),
+              ));
+            },
+            child: ExpenseItemWidget(
+              color: expense.color,
+              name: expense.name,
+              amount: expense.amount,
+              icon: expense.icon.codePoint,
+            ),
+          );
         },
       ),
       bottomNavigationBar: BottomNavigationBarWidgetView(),

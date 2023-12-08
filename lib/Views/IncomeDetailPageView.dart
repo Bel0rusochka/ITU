@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/EditIncomePageView.dart';
 import '../Controllers/IncomesPageController.dart';
 import '../Models/IncomesPageModel.dart';
@@ -8,8 +9,10 @@ import 'WithdrawIncomePageView.dart';
 
 class IncomeDetailsPageView extends StatelessWidget {
   final Income income;
+  final Balance balance;
+  final int walletId;
 
-  IncomeDetailsPageView({Key? key, required this.income}) : super(key: key);
+  IncomeDetailsPageView({Key? key, required this.income, required this.walletId, required this.balance}) : super(key: key);
 
   final IncomesPageController _controller = IncomesPageController();
 
@@ -79,7 +82,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DepositIncomePageView(income: income)),
+                            builder: (context) => DepositIncomePageView(income: income, balance: balance, walletId: walletId,)),
                       );
                     },
                     child: const Text('Deposit +'),
@@ -90,7 +93,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => WithdrawIncomePageView(income: income)),
+                            builder: (context) => WithdrawIncomePageView(income: income, balance: balance, walletId: walletId,)),
                       );
                     },
                     child: const Text('Withdraw −'),
@@ -107,7 +110,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                EditIncomePageView(income: income)),
+                                EditIncomePageView(income: income, balance: balance, walletId: walletId,)),
                       );
                     },
                     icon: const Icon(Icons.edit),
@@ -118,7 +121,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                     onPressed: () {
                       _controller.dellIncome(income.id);
 
-                      _controller.gotoPage(const IncomesPageView(title: "Incomes"), context);
+                      _controller.gotoPage(IncomesPageView(title: "Incomes", balance: balance, walletId: walletId,), context);
                     },
                     icon: const Icon(Icons.delete),
                     label: const Text('Delete'),

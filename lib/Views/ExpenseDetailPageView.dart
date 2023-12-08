@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/EditExpensePageView.dart';
 import '../Controllers/ExpensesPageController.dart';
 import '../Models/ExpensesPageModel.dart';
@@ -8,8 +9,10 @@ import 'WithdrawPageView.dart';
 
 class ExpenseDetailsPageView extends StatelessWidget {
   final Expense expense;
+  final Balance balance;
+  final int walletId;
 
-  ExpenseDetailsPageView({Key? key, required this.expense}) : super(key: key);
+  ExpenseDetailsPageView({Key? key, required this.expense, required this.walletId, required this.balance}) : super(key: key);
 
   final ExpensesPageController _controller = ExpensesPageController();
 
@@ -79,7 +82,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DepositPageView(expense: expense)),
+                            builder: (context) => DepositPageView(expense: expense, balance: balance, walletId: walletId)),
                       );
                     },
                     child: const Text('Deposit +'),
@@ -90,7 +93,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => WithdrawPageView(expense: expense)),
+                            builder: (context) => WithdrawPageView(expense: expense, balance: balance, walletId: walletId)),
                       );
                     },
                     child: const Text('Withdraw −'),
@@ -107,7 +110,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                EditExpensePageView(expense: expense)),
+                                EditExpensePageView(expense: expense, balance: balance, walletId: walletId)),
                       );
                     },
                     icon: const Icon(Icons.edit),
@@ -118,7 +121,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
                     onPressed: () {
                       _controller.dellExpense(expense.id);
 
-                      _controller.gotoPage(const ExpensesPageView(title: "Expenses"), context);
+                      _controller.gotoPage(ExpensesPageView(title: "Expenses",balance: balance, walletId: walletId),context);
                     },
                     icon: const Icon(Icons.delete),
                     label: const Text('Delete'),

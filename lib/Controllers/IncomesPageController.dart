@@ -16,8 +16,8 @@ class IncomesPageController extends ControllerMVC {
 
 
   Future<void> addIncomeToDb(
-      String name, int amount, int color, IconData icon, DateTime creationDate) async {
-    await _model.addIncomeToDb(name, amount, color, icon, creationDate);
+      int walletId, String name, int amount, int color, IconData icon, DateTime creationDate) async {
+    await _model.addIncomeToDb(walletId, name, amount, color, icon, creationDate);
   }
 
   Future<List<Income>> drawBubble(context, colorAlfa) async {
@@ -35,8 +35,8 @@ class IncomesPageController extends ControllerMVC {
     _model.deleteIncomeFromDB(id);
   }
 
-  void save(name, amount, color, icon, creationDate) {
-    _model.addIncomeToDb(name, amount, color, icon,creationDate);
+  void save(walletId, name, amount, color, icon, creationDate) {
+    _model.addIncomeToDb(walletId, name, amount, color, icon,creationDate);
   }
 
   void edit(id, newName, newAmount, newColor, newIcon) {

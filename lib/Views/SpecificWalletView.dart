@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/BalancePageView.dart';
 import 'package:itu_dev/Controllers/SpecificWalletPageController.dart';
 import '../Models/ExpensesPageModel.dart';
 import '../Models/IncomesPageModel.dart';
 import 'BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Views/ExpensesPageView.dart';
-
 import 'IncomesPageView.dart';
 
 class SpecificWalletView extends StatefulWidget {
@@ -13,10 +13,12 @@ class SpecificWalletView extends StatefulWidget {
     Key? key,
     required this.title,
     required this.balance,
+    required this.walletId,
   }) : super(key: key);
 
   final String title;
-  final dynamic balance;
+  final int walletId;
+  final Balance balance;
 
   @override
   State<SpecificWalletView> createState() => _SpecificWalletViewState();
@@ -43,7 +45,8 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
     int expenseSum = expenses
         .where((expense) =>
     expense.creationDate.isAfter(startOfWeek) &&
-        expense.creationDate.isBefore(endOfWeek))
+        expense.creationDate.isBefore(endOfWeek) &&
+        expense.walletId == widget.walletId)
         .fold(0, (prev, expense) => prev + expense.amount);
 
     // Load and calculate incomes for the current week
@@ -51,7 +54,8 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
     int incomeSum = incomes
         .where((income) =>
     income.creationDate.isAfter(startOfWeek) &&
-        income.creationDate.isBefore(endOfWeek))
+        income.creationDate.isBefore(endOfWeek) &&
+        income.walletId == widget.walletId)
         .fold(0, (prev, income) => prev + income.amount);
 
     setState(() {
@@ -66,6 +70,7 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
   @override
   Widget build(BuildContext context) {
     int balance = incomeTotal - expenseTotal;
+    widget.balance.amount = balance.toString();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
@@ -73,10 +78,10 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
         flexibleSpace: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const FlexibleSpaceBar(
+            FlexibleSpaceBar(
               title: Text(
-                "PayPal",
-                style: TextStyle(
+                widget.title,
+                style: const TextStyle(
                   fontSize: 32,
                   color: Colors.white,
                 ),
@@ -124,7 +129,10 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
                   flex: 3,
                   child: GestureDetector(
                     onTap: () {
-                      _controller.gotoPage(const ExpensesPageView(title: "Expenses"), context);
+                      _controller.gotoPage(
+                        ExpensesPageView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
+                        context,
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -165,41 +173,44 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
                   flex: 3,
                   child: GestureDetector(
                     onTap: () {
-                      _controller.gotoPage(const IncomesPageView(title: "Incomes"), context);
+                      _controller.gotoPage(
+                        IncomesPageView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
+                        context,
+                      );
                     },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF62CB99),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            const Text(
-                              'Income',
-                              style: TextStyle(
-                                color: Colors.black,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF62CB99),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              const Text(
+                                'Income',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            Text(
-                              incomeTotal.toString(),
-                              style: const TextStyle(
-                                color: Colors.black,
+                              Text(
+                                incomeTotal.toString(),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.black,
-                        ),
-                      ],
+                            ],
+                          ),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
                 ),
                 const SizedBox(width: 20),
               ],

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/IncomesPageController.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Models/IncomesPageModel.dart';
 
 import 'IncomesPageView.dart';
 
 class EditIncomePageView extends StatefulWidget {
   final Income income;
+  final int walletId;
+  final Balance balance;
 
-  const EditIncomePageView({Key? key, required this.income})
+  const EditIncomePageView({Key? key, required this.income, required this.walletId, required this.balance})
       : super(key: key);
 
   @override
@@ -211,7 +214,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
                     selectedIcon,
                   );
                   _controller.gotoPage(
-                      const IncomesPageView(title: "Incomes"), context);
+                      IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,), context);
                 }
               },
             ),

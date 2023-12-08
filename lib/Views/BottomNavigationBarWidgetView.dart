@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/BottomNavigationBarWidgetController.dart';
-import 'package:itu_dev/Views/SpecificWalletView.dart';
+import 'package:itu_dev/Views/BalancePageView.dart';
 import 'package:itu_dev/Views/TipsPageView.dart';
 import 'package:itu_dev/Views/MainPageView.dart';
-import 'package:itu_dev/Views/SpecificWalletView.dart';
 import 'package:itu_dev/Views/GoalsPageView.dart';
 import 'package:itu_dev/Views/DebtPageView.dart';
 
@@ -40,7 +39,7 @@ class BottomNavigationBarWidgetView extends StatelessWidget{
               icon: _getImage('images/balance.png'),
               iconSize: 55,
               onPressed: (){
-                _controller.changePage(const SpecificWalletView(title: 'PayPal', balance: null,), context);
+                _controller.changePage(const BalancePageView(title: "My Balance"),context);
               }
           ),//balance button
           Container(

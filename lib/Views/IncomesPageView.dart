@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/IncomesPageController.dart';
+import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Views/NewIncomePageView.dart';
 import 'package:itu_dev/Views/SpecificWalletView.dart';
@@ -8,9 +9,11 @@ import '../Models/IncomesPageModel.dart';
 import 'IncomeDetailPageView.dart';
 
 class IncomesPageView extends StatefulWidget {
-  const IncomesPageView({Key? key, required this.title}) : super(key: key);
+  const IncomesPageView({Key? key, required this.title, required this.walletId, required this.balance}) : super(key: key);
 
   final String title;
+  final int walletId;
+  final Balance balance;
 
   @override
   State<IncomesPageView> createState() => _IncomesPageViewState();
@@ -18,10 +21,25 @@ class IncomesPageView extends StatefulWidget {
 
 class _IncomesPageViewState extends State<IncomesPageView> {
   final IncomesPageController _controller = IncomesPageController();
+  final IncomesPageModel _incomeModel = IncomesPageModel();
+  List<Income> _incomes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadIncomes();
+  }
+
+  Future<void> loadIncomes() async {
+    List<Income> allIncomes = await _incomeModel.loadDBData();
+    setState(() {
+      _incomes = allIncomes.where((income) => income.walletId == widget.walletId).toList();
+    });
+  }
 
   void navigateToNewIncomePage() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => const NewIncomePageView(title: 'New Income'),
+      builder: (context) => NewIncomePageView(title: 'New Income',balance: widget.balance, walletId: widget.walletId),
     ));
   }
 
@@ -34,7 +52,7 @@ class _IncomesPageViewState extends State<IncomesPageView> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) =>
-            const SpecificWalletView(title: 'PayPal', balance: null),
+                SpecificWalletView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
           ));
         },
       ),
@@ -55,56 +73,27 @@ class _IncomesPageViewState extends State<IncomesPageView> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: FutureBuilder<List<Income>>(
-        key: UniqueKey(),
-        future: _controller.drawBubble(context, 255),
-        builder: (context, AsyncSnapshot<List<Income>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text(
-                'Error loading Incomes. Please try again later.',
-                style: TextStyle(color: Colors.white),),
-            );
-          } else if (snapshot.hasData && snapshot.data != null) {
-            if (snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text(''),
-              );
-            } else {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-                  final income = snapshot.data![index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => IncomeDetailsPageView(income: income),
-                      ));
-                    },
-                    child: IncomeItemWidget(
-                      color: income.color,
-                      name: income.name,
-                      amount: income.amount,
-                      icon: income.icon.codePoint,
-                    ),
-                  );
-                },
-              );
-            }
-          } else {
-            return const Center(
-              child: Text(''),
-            );
-          }
+      body: ListView.builder(
+        itemCount: _incomes.length,
+        itemBuilder: (context, index) {
+          final income = _incomes[index];
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => IncomeDetailsPageView(income: income, balance: widget.balance, walletId: widget.walletId),
+              ));
+            },
+            child: IncomeItemWidget(
+              color: income.color,
+              name: income.name,
+              amount: income.amount,
+              icon: income.icon.codePoint,
+            ),
+          );
         },
       ),
       bottomNavigationBar: BottomNavigationBarWidgetView(),
