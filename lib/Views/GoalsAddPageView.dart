@@ -18,9 +18,10 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
   @override
   Widget build(BuildContext context){
     String name="";
+    String goalAmount="";
     String amount="";
     String date="";
-    String goalAmount="";
+
 
     return Scaffold(
       appBar: AppBar(
@@ -28,13 +29,13 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
         title: Text(widget.title, style: const TextStyle(fontSize: 28, color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed:  (){_controller.gotoPage(const GoalsPageView(title: "My Goal"), context);}, // Вызов метода _goBack при нажатии кнопки "назад"
+          onPressed:  (){_controller.gotoPage(const GoalsPageView(title: "My Goal"), context);},
         ),
         actions: <Widget>[
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                _controller.saveGoal(name, date, amount,goalAmount);
+                _controller.saveGoal(name, goalAmount, amount, date);
                 _controller.gotoPage(const GoalsPageView(title: "My Goal"), context);
               }
           )
@@ -52,7 +53,7 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Goal',
+                  labelText: 'Name of goal',
                   border: OutlineInputBorder(),
                 ),
               ),

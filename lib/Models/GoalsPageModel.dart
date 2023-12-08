@@ -6,19 +6,19 @@ import 'package:path/path.dart';
 class Goal{
   int id;
   String name;
-  String date;
-  String amount;
   String goalAmount;
+  String amount;
+  String date;
 
-  Goal({required this.id, required this.name, required this.date, required this.amount, required this.goalAmount});
+  Goal({required this.id, required this.name, required this.goalAmount, required this.amount, required this.date});
 
   factory Goal.fromDb(Map<String, dynamic> dbData){
     return Goal(
       id: dbData['id'] as int,
       name: dbData['name'] as String,
-      date: dbData['date'] as String,
-      amount: dbData['amount'] as String,
       goalAmount: dbData['goalAmount'] as String,
+      amount: dbData['amount'] as String,
+      date: dbData['date'] as String,
     );
   }
 }
@@ -34,9 +34,9 @@ class GoalsPageModel{
     }).toList();
   }
 
-  addGoalToDb(name, date, amount, goalAmount) async{
+  addGoalToDb(name,  goalAmount, amount,date) async{
     DBProvider dbProvider = DBProvider("GOALS");
-    dbProvider.addGoalToDb(name, date, amount, goalAmount);
+    dbProvider.addGoalToDb(name, goalAmount, amount, date);
   }
 
   dellGoalFromDB(id) async{
@@ -44,9 +44,9 @@ class GoalsPageModel{
     dbProvider.dellGoalFromDB(id);
   }
 
-  editGoalInDB(id, newName, newAmount, newDate, newGoalAmount) async{
+  editGoalInDB(id, newName,newGoalAmount, newAmount, newDate) async{
     DBProvider dbProvider = DBProvider("GOALS");
-    dbProvider.editGoalInDB(id, newName, newAmount, newDate, newGoalAmount);
+    dbProvider.editGoalInDB(id, newName, newGoalAmount, newAmount, newDate);
   }
 
 }
@@ -70,7 +70,7 @@ class DBProvider {
   Database? _database;
 
   Future<Database> get database async {
-   /*  Directory documentsDirectory = await getApplicationSupportDirectory();
+    /*Directory documentsDirectory = await getApplicationSupportDirectory();
     String path = join(documentsDirectory.path, "$dbName.db");
     await deleteDatabase(path);*/
     if (_database != null) return _database!;
@@ -82,16 +82,16 @@ class DBProvider {
     Directory documentsDirectory = await getApplicationSupportDirectory();
     String path = join(documentsDirectory.path, "$dbName.db");
     return await openDatabase(path, version: 1, onOpen: (db) {}, onCreate: (Database db, int version) async {
-      await db.execute('CREATE TABLE GOALS (id INTEGER PRIMARY KEY, name TEXT ,' 'date TEXT, ' 'amount TEXT, ' 'goalAmount TEXT)');
+      await db.execute('CREATE TABLE GOALS (id INTEGER PRIMARY KEY, name TEXT ,' 'goalAmount TEXT, ' 'amount TEXT,  ' 'date TEXT)');
     });
   }
 
-  addGoalToDb(name, date, amount, goalAmount) async{
+  addGoalToDb(name,goalAmount, amount,date ) async{
     Database db = await database;
     int id = await _getNextIdGoal();
     await db.rawInsert(
-      "INSERT INTO GOALS (id, name, date, amount, goalAmount) VALUES (?, ?, ?, ?, ?)",
-      [id, name, date, amount, goalAmount],
+      "INSERT INTO GOALS (id, name, goalAmount, amount, date) VALUES (?, ?, ?, ?, ?)",
+      [id, name, goalAmount, amount, date],
     );
   }
 
@@ -107,15 +107,15 @@ class DBProvider {
     await db.delete('GOALS', where: 'id = ?', whereArgs: [id]);
   }
 
-  editGoalInDB(id, newName, newAmount, newDate, newGoalAmount) async {
+  editGoalInDB(id, newName, newGoalAmount, newAmount, newDate) async {
     Database db = await database;
     await db.update(
       'GOALS',
       {
         'name': newName,
+        'goalAmount':newGoalAmount,
         'amount': newAmount,
         'date': newDate,
-        'goalAmount':newGoalAmount,
       },
       where: 'id = ?',
       whereArgs: [id],

@@ -21,7 +21,7 @@ class GoalsPageController extends ControllerMVC{
         children: [
           GestureDetector(
             onTap: () {
-              _this.gotoPage(GoalsEditDeletePage(id: goal.id, name: goal.name, amount: goal.amount, date: goal.date, goalAmount: goal.goalAmount), context);
+              _this.gotoPage(GoalsEditDeletePage(id: goal.id, name: goal.name, goalAmount: goal.goalAmount, amount: goal.amount, date: goal.date), context);
             },
             child: _this.drawContainerGoals(101.0,372.0, colorAlfa, goal),
           ),
@@ -107,11 +107,11 @@ class GoalsPageController extends ControllerMVC{
   void dellGoal(id){
     _model.dellGoalFromDB(id);
   }
-  void saveGoal(name, date, amount, goalAmount){
-    _model.addGoalToDb(name, date, amount, goalAmount);
+  void saveGoal(name,goalAmount, amount,  date){
+    _model.addGoalToDb(name, goalAmount, amount,date);
   }
 
-  void edit(id, newName, newDate, newAmount, newGoalAmount){
-    _model.editGoalInDB(id, newName, newAmount, newDate, newGoalAmount);
+  void edit(id, newName, newGoalAmount, newAmount, newDate){
+    _model.editGoalInDB(id, newName, newGoalAmount, newAmount,  newDate);
   }
 }

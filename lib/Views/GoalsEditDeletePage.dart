@@ -7,13 +7,14 @@ import 'package:itu_dev/Views/GoalMinusPageView.dart';
 
 
 class GoalsEditDeletePage extends StatefulWidget{
-  const GoalsEditDeletePage({super.key,required this.id, required this.name, required this.amount , required this.goalAmount , required this.date});
+  const GoalsEditDeletePage({super.key,required this.id, required this.name, required this.goalAmount , required this.amount , required this.date});
 
   final id;
   final name;
+  final goalAmount;
   final amount;
   final date;
-  final goalAmount;
+
 
   @override
   State<GoalsEditDeletePage> createState() => _GoalsEditDeletePageState();
@@ -26,7 +27,7 @@ class _GoalsEditDeletePageState extends State<GoalsEditDeletePage>{
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 120,
-          title: const Text("Your Goal", style: TextStyle(fontSize: 28, color: Colors.white)),
+          title: const Text("Your Goal", style: TextStyle(fontSize: 28)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed:  (){_controller.gotoPage(const GoalsPageView(title: "My Goals"), context);},
@@ -59,7 +60,7 @@ class _GoalsEditDeletePageState extends State<GoalsEditDeletePage>{
                                 ),
                               ),
                               Text(
-                                widget.amount,
+                                "${widget.amount}/${widget.goalAmount}",
                                 style: const TextStyle(
                                   fontSize: 16,
                                 ),
@@ -87,7 +88,7 @@ class _GoalsEditDeletePageState extends State<GoalsEditDeletePage>{
                   children: [
                     GestureDetector(
                       onTap: (){
-                        _controller.gotoPage(GoalPlusPageView(id: widget.id, name: widget.name, amount:widget.amount, date: widget.date, goalAmount: widget.goalAmount), context);
+                        _controller.gotoPage(GoalPlusPageView(id: widget.id, name: widget.name, goalAmount: widget.goalAmount, amount:widget.amount, date: widget.date), context);
                       },
                       child: Container(
                         height: 45.0,
@@ -112,7 +113,7 @@ class _GoalsEditDeletePageState extends State<GoalsEditDeletePage>{
                     const SizedBox(width: 16.0),
                     GestureDetector(
                       onTap: (){
-                        _controller.gotoPage(GoalMinusPageView(id: widget.id, name: widget.name, amount:widget.amount, date: widget.date, goalAmount: widget.goalAmount), context);
+                        _controller.gotoPage(GoalMinusPageView(id: widget.id, name: widget.name,  goalAmount: widget.goalAmount, amount:widget.amount, date: widget.date), context);
                       },
                       child: Container(
                         height: 45.0,
@@ -144,7 +145,7 @@ class _GoalsEditDeletePageState extends State<GoalsEditDeletePage>{
                   children: [
                     GestureDetector(
                       onTap: (){
-                        _controller.gotoPage(GoalsEditPageView(id: widget.id, name: widget.name, amount:widget.amount, date: widget.date, goalAmount: widget.goalAmount), context);
+                        _controller.gotoPage(GoalsEditPageView(id: widget.id, name: widget.name, goalAmount: widget.goalAmount, amount:widget.amount, date: widget.date), context);
                       },
                       child: Container(
                         height: 45.0,

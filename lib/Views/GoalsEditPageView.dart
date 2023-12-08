@@ -4,13 +4,13 @@ import 'package:itu_dev/Views/GoalsEditDeletePage.dart';
 import 'package:itu_dev/Controllers/GoalsPageController.dart';
 
 class GoalsEditPageView extends StatefulWidget {
-  const GoalsEditPageView({super.key,required this.id, required this.name, required this.amount,required this.goalAmount, required this.date});
+  const GoalsEditPageView({super.key,required this.id, required this.name,required this.goalAmount, required this.amount, required this.date});
 
   final id;
   final name;
+  final goalAmount;
   final amount;
   final date;
-  final goalAmount;
 
   @override
   State<GoalsEditPageView> createState() => _GoalsEditPageViewState();
@@ -23,23 +23,24 @@ class _GoalsEditPageViewState extends State<GoalsEditPageView>{
   @override
   Widget build(BuildContext context){
     String newName=widget.name;
-    String newDate=widget.date;
-    String newAmount=widget.amount;
     String newGoalAmount=widget.goalAmount;
+    String newAmount=widget.amount;
+    String newDate=widget.date;
+
 
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        title: const Text("Edit", style: TextStyle(fontSize: 28, color: Colors.white)),
+        title: const Text("Edit", style: TextStyle(fontSize: 28)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed:  (){_controller.gotoPage(GoalsEditDeletePage(id: widget.id, name: widget.name, amount: widget.amount, date: widget.date, goalAmount: widget.goalAmount), context);},
+          onPressed:  (){_controller.gotoPage(GoalsEditDeletePage(id: widget.id, name: widget.name, goalAmount: widget.goalAmount,amount: widget.amount, date: widget.date), context);},
         ),
         actions: <Widget>[
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                _controller.edit(widget.id, newName, newDate, newAmount, newGoalAmount);
+                _controller.edit(widget.id, newName, newGoalAmount, newAmount,  newDate);
                 _controller.gotoPage(const GoalsPageView(title: "My Goals"), context);
               }
           )
@@ -58,7 +59,7 @@ class _GoalsEditPageViewState extends State<GoalsEditPageView>{
                   labelStyle: TextStyle(
                     color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  labelText: 'Goal',
+                  labelText: 'Name of goal',
                   border: OutlineInputBorder(),
                 ),
               ),

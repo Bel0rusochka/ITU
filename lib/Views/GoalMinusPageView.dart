@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:itu_dev/Views/GoalsPageView.dart';
-import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Controllers/GoalsPageController.dart';
-import 'package:itu_dev/Views/GoalsEditDeletePage.dart';
-
+import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
+import 'package:itu_dev/Views/GoalsPageView.dart';
 class GoalMinusPageView extends StatefulWidget {
   const GoalMinusPageView({super.key,required this.id, required this.name, required this.amount , required this.goalAmount , required this.date});
 
@@ -29,7 +27,7 @@ class _GoalMinusPageViewState extends State<GoalMinusPageView>{
         title: const Text("Withdraw", style: TextStyle(fontSize: 28, color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed:  (){_controller.gotoPage(GoalsEditDeletePage(id: widget.id, name: widget.name, amount: widget.amount, date: widget.date, goalAmount: widget.goalAmount), context);},
+          onPressed:  (){_controller.gotoPage(const GoalsPageView(title: "My Goals"), context);},
         ),
       ),
       body: SingleChildScrollView(
@@ -41,14 +39,31 @@ class _GoalMinusPageViewState extends State<GoalMinusPageView>{
                 style: const TextStyle(color: Colors.white),
                 onChanged: (text){newAmount=text;},
                 decoration: const InputDecoration(
+                  labelText: 'Amount to Deduct',
                   border: OutlineInputBorder(),
                 ),
               ),
             ),
             const SizedBox(width: 16.0),
             GestureDetector(
-              onTap: (){
-                _controller.gotoPage(const GoalsPageView(title: "My Goals"), context);
+              onTap: () async {
+                if (newAmount.isNotEmpty) {
+                  int amountToDeduct = int.tryParse(newAmount) ?? 0;
+                  int updatedAmount = int.parse(widget.amount) - amountToDeduct;
+
+                  _controller.edit(
+                    widget.id,
+                    widget.name,
+                    widget.goalAmount,
+                    updatedAmount,
+                    widget.date,
+                  );
+
+                  _controller.gotoPage(
+                    const GoalsPageView(title: "My Goals"),
+                    context,
+                  );
+                }
               },
               child: Container(
                 height: 45.0,
