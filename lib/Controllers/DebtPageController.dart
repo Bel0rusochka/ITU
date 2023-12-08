@@ -85,7 +85,7 @@ class DebtPageController extends ControllerMVC{
                     ),
                   ),
                   Text(
-                    debt.amount,
+                    debt.amount + "\$",
                     style: const TextStyle(
                       fontSize: 16,
                     ),

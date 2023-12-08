@@ -130,6 +130,7 @@ class _DebtEditPageViewState extends State<DebtEditPageView> {
               child: TextField(
                 style: const TextStyle(color: Colors.white),
                 controller: _amountController,
+                keyboardType: TextInputType.number,
                 onChanged: (text) {
                   // You can perform any additional logic on text change if needed
                 },

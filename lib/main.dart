@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       // Set the title of the app
       title: 'ITU proj',
 
+
       // Disable the debug banner in the top-right corner
       debugShowCheckedModeBanner: false,
 

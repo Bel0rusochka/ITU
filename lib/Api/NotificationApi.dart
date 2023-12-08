@@ -24,7 +24,7 @@ class NotificationService {
   Future<void> initNotification() async {
     // Android notification settings
     AndroidInitializationSettings initializationSettingsAndroid =
-    const AndroidInitializationSettings('icon');
+    const AndroidInitializationSettings('logo');
 
     // Read notification settings from SharedPreferences
     SharedPreferences prefs = await SharedPreferences.getInstance();
