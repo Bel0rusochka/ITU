@@ -151,7 +151,10 @@ class BalancePageController extends ControllerMVC {
   }
 
   void dellBalance(id) {
+    _incomesModel.deleteIncomesByWalletId(id);
+    _expenseModel.deleteExpensesByWalletId(id);
     _model.dellBalanceFromDB(id);
+    updateTotalAmount();
   }
 
   void saveBalance(name, amount) {

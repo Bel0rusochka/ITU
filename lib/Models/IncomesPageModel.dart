@@ -45,6 +45,14 @@ class IncomesPageModel {
       return Income.fromDb(row);
     }).toList();
   }
+
+  Future<void> deleteIncomesByWalletId(int walletId) async {
+    List<Income> incomes = await loadDBData();
+    incomes
+        .where((income) => income.walletId == walletId)
+        .forEach((income) => deleteIncomeFromDB(income.id));
+  }
+
   Future<Income> getIncomeById(int id) async {
     DBProvider dbProvider = DBProvider("Income");
     Database database = await dbProvider.database;
