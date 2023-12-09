@@ -50,11 +50,16 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                 style: const TextStyle(color: Colors.white),
                 onChanged: (text){name=text;},
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Name of goal',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -64,11 +69,16 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                 style: const TextStyle(color: Colors.white),
                 onChanged: (text){goalAmount = text;} ,
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Goal Amount',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -78,11 +88,16 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                 style: const TextStyle(color: Colors.white),
                 onChanged: (text){amount = text;} ,
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Collected Amount',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -92,11 +107,16 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                 style: const TextStyle(color: Colors.white),
                 onChanged: (text){date = text;} ,
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Date',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),

@@ -101,11 +101,16 @@ class _DebtAddPageViewState extends State<DebtAddPageView> {
                   // Perform any additional validation logic here if needed
                 },
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Name',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -120,11 +125,16 @@ class _DebtAddPageViewState extends State<DebtAddPageView> {
                   // Perform any additional validation logic here if needed
                 },
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
-                  ),
+                    labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                    border: OutlineInputBorder(),
+
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                    ),
                   labelText: 'Amount',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -141,11 +151,16 @@ class _DebtAddPageViewState extends State<DebtAddPageView> {
                       // Perform any additional validation logic here if needed
                     },
                     decoration: const InputDecoration(
-                      labelStyle: TextStyle(
-                        color: Color.fromARGB(100, 255, 255, 255),
+                      labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                      border: OutlineInputBorder(),
+
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                       ),
                       labelText: 'Date for pay off',
-                      border: OutlineInputBorder(),
                     ),
                   ),
                 ),

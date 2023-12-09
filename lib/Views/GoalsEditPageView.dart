@@ -31,7 +31,7 @@ class _GoalsEditPageViewState extends State<GoalsEditPageView>{
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 120,
-        title: const Text("Edit", style: TextStyle(fontSize: 28)),
+        title: const Text("Edit", style: TextStyle(fontSize: 28, color: Colors.white)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed:  (){_controller.gotoPage(GoalsEditDeletePage(id: widget.id, name: widget.name, goalAmount: widget.goalAmount,amount: widget.amount, date: widget.date), context);},
@@ -56,11 +56,16 @@ class _GoalsEditPageViewState extends State<GoalsEditPageView>{
                 controller: TextEditingController(text: widget.name),
                 onChanged: (text){newName=text;},
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Name of goal',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -68,29 +73,41 @@ class _GoalsEditPageViewState extends State<GoalsEditPageView>{
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 style: const TextStyle(color: Colors.white),
+                keyboardType: TextInputType.number,
                 controller: TextEditingController(text: widget.goalAmount),
                 onChanged: (text){newGoalAmount = text;} ,
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Goal Amount',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
+                keyboardType: TextInputType.number,
                 style: const TextStyle(color: Colors.white),
                 controller: TextEditingController(text: widget.amount),
                 onChanged: (text){newAmount = text;} ,
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Collected Amount',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -101,11 +118,16 @@ class _GoalsEditPageViewState extends State<GoalsEditPageView>{
                 controller: TextEditingController(text: widget.date),
                 onChanged: (text){newDate = text;} ,
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Desire date',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),

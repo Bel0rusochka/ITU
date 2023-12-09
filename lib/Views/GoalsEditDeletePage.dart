@@ -27,7 +27,7 @@ class _GoalsEditDeletePageState extends State<GoalsEditDeletePage>{
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 120,
-          title: const Text("Your Goal", style: TextStyle(fontSize: 28)),
+          title: const Text("Your Goal", style: TextStyle(fontSize: 28, color: Colors.white)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed:  (){_controller.gotoPage(const GoalsPageView(title: "My Goals"), context);},

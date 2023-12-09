@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/GoalsPageController.dart';
 import 'package:itu_dev/Controllers/MainPageController.dart';
 import 'package:itu_dev/Controllers/DebtPageController.dart';
+import 'package:itu_dev/Controllers/BalancePageController.dart';
+import 'package:itu_dev/Controllers/ExpensesPageController.dart';
+import 'package:itu_dev/Controllers/IncomesPageController.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Views/NotificationsPageView.dart';
 
@@ -24,6 +27,9 @@ class _MainPageViewState extends State<MainPageView>{
   final MainPageController _controllerMain = MainPageController();
   final DebtPageController _controllerDebt = DebtPageController();
   final GoalsPageController _controllerGoal = GoalsPageController();
+  final BalancePageController _controllerBalance = BalancePageController();
+  final ExpensesPageController _controllerExpense = ExpensesPageController();
+  final IncomesPageController _controllerIncomes = IncomesPageController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,49 +58,9 @@ class _MainPageViewState extends State<MainPageView>{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  height: hightBubble,
-                  width: wightBubble,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'My Total',
-                          style: TextStyle(
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _controllerMain.getTotalPartMain(hightBubble, wightBubble, _controllerExpense, _controllerIncomes),
                 const SizedBox(height: 7),
-                Container(
-                  height: hightBubble,
-                  width: wightBubble,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'My Balance',
-                          style: TextStyle(
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _controllerMain.getBalancePartMain(hightBubble, wightBubble, color, _controllerBalance, context),
                 const SizedBox(height: 7),
                 Container(
                   height: hightBubble,

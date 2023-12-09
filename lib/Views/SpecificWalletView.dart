@@ -6,6 +6,7 @@ import '../Models/ExpensesPageModel.dart';
 import '../Models/IncomesPageModel.dart';
 import 'BottomNavigationBarWidgetView.dart';
 import 'package:itu_dev/Views/ExpensesPageView.dart';
+import 'package:itu_dev/Controllers/BalancePageController.dart';
 import 'IncomesPageView.dart';
 
 class SpecificWalletView extends StatefulWidget {
@@ -26,6 +27,7 @@ class SpecificWalletView extends StatefulWidget {
 
 class _SpecificWalletViewState extends State<SpecificWalletView> {
   final WalletPageController _controller = WalletPageController();
+  final BalancePageController _controllerBalance = BalancePageController();
   final ExpensePageModel _expenseModel = ExpensePageModel();
   final IncomesPageModel _incomesModel = IncomesPageModel();
 
@@ -108,6 +110,16 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
             _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            iconSize: 30,
+            onPressed: () {
+              _controllerBalance.dellBalance(widget.walletId);
+              _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(

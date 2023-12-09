@@ -117,11 +117,16 @@ class _DebtEditPageViewState extends State<DebtEditPageView> {
                   // You can perform any additional logic on text change if needed
                 },
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Name',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -135,11 +140,16 @@ class _DebtEditPageViewState extends State<DebtEditPageView> {
                   // You can perform any additional logic on text change if needed
                 },
                 decoration: const InputDecoration(
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(100, 255, 255, 255),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                  border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   labelText: 'Amount',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -152,11 +162,16 @@ class _DebtEditPageViewState extends State<DebtEditPageView> {
                     controller: _dateController,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelStyle: TextStyle(
-                        color: Color.fromARGB(100, 255, 255, 255),
+                      labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
+                      border: OutlineInputBorder(),
+
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                       ),
                       labelText: 'Date for pay off',
-                      border: OutlineInputBorder(),
                     ),
                   ),
                 ),

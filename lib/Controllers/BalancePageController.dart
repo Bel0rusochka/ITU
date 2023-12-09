@@ -48,6 +48,7 @@ class BalancePageController extends ControllerMVC {
   }
 
 
+
   Future<num> calculateTotalAmount() async {
     List<Balance> balances = await _model.loadDBData();
     num calculatedTotalAmount = balances.fold<num>(
@@ -57,24 +58,57 @@ class BalancePageController extends ControllerMVC {
     return calculatedTotalAmount;
   }
 
+  //function was written by xkulin01
+  Future<num?> getActualAmount(id) async {
+    List<Balance> balances = await _model.loadDBData();
+    Balance? targetBalance = balances.firstWhere((balance) => balance.id == id);
+    return  double.tryParse(targetBalance.amount);
+  }
+
   Future<void> updateTotalAmount() async {
     totalAmount = await calculateTotalAmount();
     setState(() {});
   }
 
-  Future<Column> drawBalanceForMain(colorAlfa) async {
+  //function was written by xkulin01
+  Future<Column> drawBalanceForMain() async {
     List<Widget> widgets;
     List<Balance> balances = await _model.loadDBData();
     widgets = balances.map((balance) {
       return Column(
         children: [
-          _this.drawContainerBalance(60.0, 372.0, colorAlfa, balance),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(width: 16.0),
+              Text(
+                balance.name,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                "${balance.amount}\$",
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+            ],
+          ),
           const SizedBox(height: 3.0),
         ],
       );
     }).toList();
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: widgets);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: widgets,
+    );
   }
+
+
 
   void gotoPage(pageObj, context) {
     Navigator.pushReplacement(
@@ -88,7 +122,7 @@ class BalancePageController extends ControllerMVC {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color.fromARGB(colorAlfa, 255, 255, 255),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(
@@ -126,7 +160,7 @@ class BalancePageController extends ControllerMVC {
     });
   }
 
-  void edit(id, newName, newAmount) {
+  void edit(id, newName, newAmount){
     _model.editBalanceInDB(id, newName, newAmount).then((_) {
       updateTotalAmount(); // Update totalAmount immediately after editing
     });

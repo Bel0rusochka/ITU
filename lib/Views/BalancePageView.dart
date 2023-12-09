@@ -20,9 +20,14 @@ class _BalancePageViewState extends State<BalancePageView> {
   var heightBubble = 70.0;
   late num totalAmount; // Declare totalAmount as a late variable
 
+  Future<void> _refresh() async {
+    _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
+  }
+
   @override
-  void initState() {
+  void initState(){
     super.initState();
+    totalAmount = 0;
     // Load the totalAmount when the widget is initialized
     _controller.calculateTotalAmount().then((value) {
       setState(() {
@@ -47,57 +52,62 @@ class _BalancePageViewState extends State<BalancePageView> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                height: heightBubble,
-                width: wightBubble,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      const Text(
-                        'My Total',
-                        style: TextStyle(
-                          fontSize: 24,
+      body: RefreshIndicator(
+      // Pull-to-refresh indicator
+        onRefresh: _refresh,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: heightBubble,
+                  width: wightBubble,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          'My Total',
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '${totalAmount ?? 0}\$',
-                        style: const TextStyle(
-                          fontSize: 24,
+                        Text(
+                          '${totalAmount ?? 0}\$',
+                          style: const TextStyle(
+                            fontSize: 24,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              FutureBuilder<Widget>(
-                future: _controller.drawBubbleBalance(context, 255),
-                builder: (context, AsyncSnapshot<Widget> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (snapshot.hasData && snapshot.data != null) {
-                    return snapshot.data!;
-                  } else {
-                    return const Center(
-                      child: Text('No data available'),
-                    );
-                  }
-                },
-              ),
-            ],
+                const SizedBox(height: 16),
+                FutureBuilder<Widget>(
+                  future: _controller.drawBubbleBalance(context, 255),
+                  builder: (context, AsyncSnapshot<Widget> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData && snapshot.data != null) {
+                      return snapshot.data!;
+                    } else {
+                      return const Center(
+                        child: Text('No data available'),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

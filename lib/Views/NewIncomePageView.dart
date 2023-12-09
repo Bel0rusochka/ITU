@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/IncomesPageView.dart';
 import 'package:itu_dev/Controllers/IncomesPageController.dart';
-
+import 'package:itu_dev/Controllers/BalancePageController.dart';
 class NewIncomePageView extends StatefulWidget {
   const NewIncomePageView({Key? key, required this.title, required this.walletId, required this.balance}) : super(key: key);
 
@@ -16,7 +16,7 @@ class NewIncomePageView extends StatefulWidget {
 
 class _NewIncomePageViewState extends State<NewIncomePageView> {
   final IncomesPageController _controller = IncomesPageController();
-
+  final BalancePageController _controllerBalance = BalancePageController();
   String categoryName = "";
   String amount = "";
   int selectedColor = 0xFFDBB387;
@@ -192,10 +192,13 @@ class _NewIncomePageViewState extends State<NewIncomePageView> {
                     _showErrorSnackBar('Please fill in both name and amount.');
                   } else {
                     DateTime currentDate = DateTime.now();
-                    _controller.save(
-                        widget.walletId, categoryName, int.parse(amount), selectedColor, selectedIcon,currentDate);
-                    _controller.gotoPage(
-                        IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,), context);
+                    _controller.save(widget.walletId, categoryName, int.parse(amount), selectedColor, selectedIcon,currentDate);
+                    _controllerBalance.getActualAmount(widget.walletId).then((actualAmount) {
+                      if (actualAmount != null) {
+                        _controllerBalance.edit(widget.walletId, widget.balance.name, actualAmount + double.parse(amount));
+                      }
+                    });
+                    _controller.gotoPage(IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,), context);
                   }
                 },
               )
@@ -216,13 +219,14 @@ class _NewIncomePageViewState extends State<NewIncomePageView> {
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   labelText: 'Name',
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
+
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                 ),
               ),
@@ -236,15 +240,17 @@ class _NewIncomePageViewState extends State<NewIncomePageView> {
                   });
                 },
                 style: const TextStyle(color: Colors.white),
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Amount',
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
+
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                 ),
               ),

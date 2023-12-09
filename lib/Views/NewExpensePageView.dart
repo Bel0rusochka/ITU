@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/ExpensesPageView.dart';
 import 'package:itu_dev/Controllers/ExpensesPageController.dart';
+import 'package:itu_dev/Controllers/BalancePageController.dart';
 
 class NewExpensePageView extends StatefulWidget {
   const NewExpensePageView({Key? key, required this.title, required this.walletId, required this.balance}) : super(key: key);
@@ -16,6 +17,7 @@ class NewExpensePageView extends StatefulWidget {
 
 class _NewExpensePageViewState extends State<NewExpensePageView> {
   final ExpensesPageController _controller = ExpensesPageController();
+  final BalancePageController _controllerBalance = BalancePageController();
 
   String categoryName = "";
   String amount = "";
@@ -249,17 +251,20 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
       child: TextButton(
         child: const Text(
           'Save',
-          style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
+          style: TextStyle(color: Colors.white, fontSize: 20),
         ),
-        onPressed: () {
+        onPressed: () async {
           if (categoryName.isEmpty || amount.isEmpty) {
             _showErrorSnackBar('Please fill in both name and amount.');
           } else {
             DateTime currentDate = DateTime.now();
-            _controller.save(
-                widget.walletId, categoryName, int.parse(amount), selectedColor, selectedIcon, currentDate);
-            _controller.gotoPage(
-                ExpensesPageView(title: "Expenses", balance: widget.balance, walletId: widget.walletId), context);
+            _controller.save(widget.walletId, categoryName, int.parse(amount), selectedColor, selectedIcon, currentDate);
+            _controllerBalance.getActualAmount(widget.walletId).then((actualAmount) {
+              if (actualAmount != null) {
+                _controllerBalance.edit(widget.walletId, widget.balance.name, actualAmount - double.parse(amount));
+              }
+            });
+            _controller.gotoPage(ExpensesPageView(title: "Expenses", balance: widget.balance, walletId: widget.walletId), context);
           }
         },
           )
@@ -280,13 +285,14 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   labelText: 'Name',
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
+
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                 ),
               ),
@@ -300,15 +306,17 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
                   });
                 },
                 style: const TextStyle(color: Colors.white),
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Amount',
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
+
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
                 ),
               ),

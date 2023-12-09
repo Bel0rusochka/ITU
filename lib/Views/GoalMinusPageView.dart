@@ -36,11 +36,19 @@ class _GoalMinusPageViewState extends State<GoalMinusPageView>{
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-                style: const TextStyle(color: Colors.white),
+                keyboardType: TextInputType.number,
                 onChanged: (text){newAmount=text;},
                 decoration: const InputDecoration(
-                  labelText: 'Amount to Deduct',
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  labelText: 'Amount to Deduct',
                 ),
               ),
             ),

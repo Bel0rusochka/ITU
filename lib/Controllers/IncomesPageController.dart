@@ -42,4 +42,14 @@ class IncomesPageController extends ControllerMVC {
   void edit(id, newName, newAmount, newColor, newIcon) {
     _model.editIncomeInDB(id, newName, newAmount, newColor, newIcon);
   }
+
+  //function was written by xkulin01
+  Future<num> calculateTotalIncomes() async {
+    List<Income> incomes = await _model.loadDBData();
+    num totalIncomes = incomes.fold<num>(
+      0,
+          (num sum, Income income) => sum + income.amount,
+    );
+    return totalIncomes;
+  }
 }

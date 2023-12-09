@@ -42,4 +42,15 @@ class ExpensesPageController extends ControllerMVC {
   void edit(id, newName, newAmount, newColor, newIcon) {
     _model.editExpenseInDB(id, newName, newAmount, newColor, newIcon);
   }
+
+  //function was written by xkulin01
+  Future<num> calculateTotalExpenses() async {
+    List<Expense> expenses = await _model.loadDBData();
+    num totalExpenses = expenses.fold<num>(
+      0,
+          (num sum, Expense expense) => sum + expense.amount,
+    );
+    return totalExpenses;
+  }
+
 }

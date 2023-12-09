@@ -45,21 +45,39 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
+                style: const TextStyle(color: Colors.white),
                 onChanged: (text){name=text;},
                 decoration: const InputDecoration(
-                  labelText: 'Name',
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  labelText: 'Name',
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
+                style: const TextStyle(color: Colors.white),
                 keyboardType: TextInputType.number,
                 onChanged: (text){amount = text;} ,
                 decoration: const InputDecoration(
-                  labelText: 'Amount',
+                  labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
+
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
+                  ),
+                  labelText: 'Amount',
                 ),
               ),
             ),
