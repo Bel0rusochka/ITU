@@ -45,11 +45,56 @@ class IncomesPageController extends ControllerMVC {
 
   //function was written by xkulin01
   Future<num> calculateTotalIncomes() async {
+    // Get all incomes from the database
     List<Income> incomes = await _model.loadDBData();
-    num totalIncomes = incomes.fold<num>(
+
+    // Get the current date
+    DateTime currentDate = DateTime.now();
+
+    // Filter incomes for the current month
+    List<Income> incomesForCurrentMonth = incomes.where((income) {
+      return income.creationDate.year == currentDate.year &&
+          income.creationDate.month == currentDate.month;
+    }).toList();
+
+    // Calculate the total income for the current month
+    num totalIncomesForCurrentMonth = incomesForCurrentMonth.fold<num>(
       0,
           (num sum, Income income) => sum + income.amount,
     );
-    return totalIncomes;
+
+    return totalIncomesForCurrentMonth;
+  }
+
+  //function was written by xkulin01
+  Future<List<num>> calculateTotalIncomesPerDay() async {
+    // Get all incomes from the database
+    List<Income> incomes = await _model.loadDBData();
+
+    // Get the current date and time
+    DateTime currentDate = DateTime.now();
+
+    // Initialize a list to store the total incomes for each of the last 7 days
+    List<num> totalIncomesPerDay = List<num>.generate(7, (index) {
+      // Calculate the date for the current iteration (going back 6 days from the current date)
+      DateTime date = currentDate.subtract(Duration(days: index));
+
+      // Filter incomes for the current day
+      List<Income> incomesForDay = incomes.where((income) {
+        return income.creationDate.year == date.year &&
+            income.creationDate.month == date.month &&
+            income.creationDate.day == date.day;
+      }).toList();
+
+      // Calculate the total income for the current day
+      num totalIncomeForDay = incomesForDay.fold<num>(
+        0,
+            (num sum, Income income) => sum + income.amount,
+      );
+
+      return totalIncomeForDay;
+    });
+
+    return totalIncomesPerDay;
   }
 }

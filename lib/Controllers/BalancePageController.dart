@@ -47,8 +47,6 @@ class BalancePageController extends ControllerMVC {
     );
   }
 
-
-
   Future<num> calculateTotalAmount() async {
     List<Balance> balances = await _model.loadDBData();
     num calculatedTotalAmount = balances.fold<num>(
