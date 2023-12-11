@@ -62,27 +62,28 @@ class _MainPageViewState extends State<MainPageView>{
                 const SizedBox(height: 7),
                 _controllerMain.getBalancePartMain(hightBubble, wightBubble, color, _controllerBalance, context),
                 const SizedBox(height: 7),
-                Container(
-                  height: hightBubble,
-                  width: wightBubble,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Balance - Last 7 days',
-                          style: TextStyle(
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _controllerMain.drawChartForMain(hightBubble, wightBubble, _controllerExpense, _controllerIncomes),
+                // Container(
+                //   height: hightBubble,
+                //   width: wightBubble,
+                //   decoration: BoxDecoration(
+                //     color: color,
+                //     borderRadius: BorderRadius.circular(20),
+                //   ),
+                //   child: const Center(
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       children: <Widget>[
+                //         Text(
+                //           'Balance - Last 7 days',
+                //           style: TextStyle(
+                //             fontSize: 24,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 7),
                 _controllerMain.getGoalPartMain(hightBubble, wightBubble, color, _controllerGoal, context),
                 const SizedBox(height: 7),
