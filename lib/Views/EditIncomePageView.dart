@@ -40,10 +40,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
   Future<void> _showErrorSnackBar(String message) async {
     final snackBar = SnackBar(
       content: Text(
-        message,
-        style: const TextStyle(color: Colors.white),
-      ),
-      backgroundColor: Colors.red,
+        message),
       duration: const Duration(seconds: 3),
     );
 
@@ -247,6 +244,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
               child: TextField(
                 controller: amountController,
                 style: const TextStyle(color: Colors.white),
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelText: 'Amount',
                   labelStyle: TextStyle(color: Colors.white),

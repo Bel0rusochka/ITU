@@ -19,17 +19,17 @@ class ExpenseDetailsPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF6191EB),
+      backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(20),
       ),
     );
     final ButtonStyle deleteButtonStyle = ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFFC27C9C),
-      foregroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 247, 73, 73),
+      foregroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(20),
       ),
     );
 

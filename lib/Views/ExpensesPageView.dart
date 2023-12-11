@@ -24,6 +24,11 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
   final ExpensePageModel _expenseModel = ExpensePageModel();
   List<Expense> _expenses = [];
 
+  // Method to refresh the view when triggered
+  Future<void> _refresh() async {
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -77,24 +82,27 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: ListView.builder(
-        itemCount: _expenses.length,
-        itemBuilder: (context, index) {
-          final expense = _expenses[index];
-          return InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ExpenseDetailsPageView(expense: expense, balance: widget.balance, walletId: widget.walletId),
-              ));
-            },
-            child: ExpenseItemWidget(
-              color: expense.color,
-              name: expense.name,
-              amount: expense.amount,
-              icon: expense.icon.codePoint,
-            ),
-          );
-        },
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: ListView.builder(
+          itemCount: _expenses.length,
+          itemBuilder: (context, index) {
+            final expense = _expenses[index];
+            return InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ExpenseDetailsPageView(expense: expense, balance: widget.balance, walletId: widget.walletId),
+                ));
+              },
+              child: ExpenseItemWidget(
+                color: expense.color,
+                name: expense.name,
+                amount: expense.amount,
+                icon: expense.icon.codePoint,
+              ),
+            );
+          },
+        ),
       ),
       bottomNavigationBar: BottomNavigationBarWidgetView(),
     );

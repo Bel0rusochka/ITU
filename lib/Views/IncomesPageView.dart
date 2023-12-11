@@ -30,6 +30,11 @@ class _IncomesPageViewState extends State<IncomesPageView> {
     loadIncomes();
   }
 
+  // Method to refresh the view when triggered
+  Future<void> _refresh() async {
+    setState(() {});
+  }
+
   Future<void> loadIncomes() async {
     List<Income> allIncomes = await _incomeModel.loadDBData();
     setState(() {
@@ -77,7 +82,9 @@ class _IncomesPageViewState extends State<IncomesPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: ListView.builder(
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+      child: ListView.builder(
         itemCount: _incomes.length,
         itemBuilder: (context, index) {
           final income = _incomes[index];
@@ -95,6 +102,7 @@ class _IncomesPageViewState extends State<IncomesPageView> {
             ),
           );
         },
+      ),
       ),
       bottomNavigationBar: BottomNavigationBarWidgetView(),
     );

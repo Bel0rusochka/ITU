@@ -25,10 +25,7 @@ class _NewIncomePageViewState extends State<NewIncomePageView> {
   Future<void> _showErrorSnackBar(String message) async {
     final snackBar = SnackBar(
       content: Text(
-        message,
-        style: const TextStyle(color: Colors.white),
-      ),
-      backgroundColor: Colors.red,
+        message),
       duration: const Duration(seconds: 3),
     );
 
