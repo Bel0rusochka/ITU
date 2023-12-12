@@ -79,10 +79,9 @@ class IncomeDetailsPageView extends StatelessWidget {
                   ElevatedButton(
                     style: buttonStyle,
                     onPressed: () {
-                      Navigator.push(
+                      _controller.gotoPage(
+                        DepositIncomePageView(income: income, balance: balance, walletId: walletId),
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => DepositIncomePageView(income: income, balance: balance, walletId: walletId,)),
                       );
                     },
                     child: const Text('Deposit +'),
@@ -90,10 +89,9 @@ class IncomeDetailsPageView extends StatelessWidget {
                   ElevatedButton(
                     style: buttonStyle,
                     onPressed: () {
-                      Navigator.push(
+                      _controller.gotoPage(
+                        WithdrawIncomePageView(income: income, balance: balance, walletId: walletId),
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => WithdrawIncomePageView(income: income, balance: balance, walletId: walletId,)),
                       );
                     },
                     child: const Text('Withdraw −'),
@@ -106,11 +104,9 @@ class IncomeDetailsPageView extends StatelessWidget {
                   ElevatedButton.icon(
                     style: buttonStyle,
                     onPressed: () {
-                      Navigator.push(
+                      _controller.gotoPage(
+                        EditIncomePageView(income: income, balance: balance, walletId: walletId),
                         context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                EditIncomePageView(income: income, balance: balance, walletId: walletId,)),
                       );
                     },
                     icon: const Icon(Icons.edit),

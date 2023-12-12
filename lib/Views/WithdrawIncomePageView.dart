@@ -31,7 +31,7 @@ class _WithdrawPageViewState extends State<WithdrawIncomePageView> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);
+            _controller.gotoPage(IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,), context);
           },
         ),
       ),
@@ -45,6 +45,7 @@ class _WithdrawPageViewState extends State<WithdrawIncomePageView> {
                 onChanged: (text) {
                   newAmount = text;
                 },
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
@@ -54,7 +55,7 @@ class _WithdrawPageViewState extends State<WithdrawIncomePageView> {
             GestureDetector(
               onTap: () async {
                 if (newAmount.isNotEmpty) {
-                  int amountToWithdraw = int.tryParse(newAmount) ?? 0;
+                  num amountToWithdraw = num.tryParse(newAmount) ?? 0;
                   amountToWithdraw = widget.income.amount - amountToWithdraw;
                   _controller.edit(widget.income.id, widget.income.name, amountToWithdraw, widget.income.color, widget.income.icon);
                   _controller.gotoPage(Builder(

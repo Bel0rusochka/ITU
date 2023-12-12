@@ -238,7 +238,7 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
-                Navigator.of(context).pop();
+                _controller.gotoPage(ExpensesPageView(title: widget.title, walletId: widget.walletId, balance: widget.balance),context);
               },
             ),
           ),
@@ -255,10 +255,10 @@ class _NewExpensePageViewState extends State<NewExpensePageView> {
             _showErrorSnackBar('Please fill in both name and amount.');
           } else {
             DateTime currentDate = DateTime.now();
-            _controller.save(widget.walletId, categoryName, int.parse(amount), selectedColor, selectedIcon, currentDate);
+            _controller.save(widget.walletId, categoryName, num.parse(amount), selectedColor, selectedIcon, currentDate);
             _controllerBalance.getActualAmount(widget.walletId).then((actualAmount) {
               if (actualAmount != null) {
-                _controllerBalance.edit(widget.walletId, widget.balance.name, actualAmount - double.parse(amount));
+                _controllerBalance.edit(widget.walletId, widget.balance.name, actualAmount - num.parse(amount));
               }
             });
             _controller.gotoPage(ExpensesPageView(title: "Expenses", balance: widget.balance, walletId: widget.walletId), context);

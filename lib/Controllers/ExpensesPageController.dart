@@ -16,7 +16,7 @@ class ExpensesPageController extends ControllerMVC {
 
 
   Future<void> addExpenseToDb(
-      int walletId, String name, int amount, int color, IconData icon, DateTime creationDate) async {
+      int walletId, String name, num amount, int color, IconData icon, DateTime creationDate) async {
     await _model.addExpenseToDb(walletId, name, amount, color, icon, creationDate);
   }
 
@@ -59,7 +59,7 @@ class ExpensesPageController extends ControllerMVC {
 
     // Calculate the total expenses for the current month
     num totalExpensesForCurrentMonth = expensesForCurrentMonth.fold<num>(
-      0,
+      0.0,
           (num sum, Expense expense) => sum + expense.amount,
     );
 
@@ -88,7 +88,7 @@ class ExpensesPageController extends ControllerMVC {
 
       // Calculate the total expense for the current day
       num totalExpenseForDay = expensesForDay.fold<num>(
-        0,
+        0.0,
             (num sum, Expense expense) => sum + expense.amount,
       );
 

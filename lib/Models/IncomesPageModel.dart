@@ -8,7 +8,7 @@ class Income {
   int id;
   int walletId;
   String name;
-  int amount;
+  num amount;
   int color;
   IconData icon;
   DateTime creationDate;
@@ -28,7 +28,7 @@ class Income {
       id: dbData['id'] as int,
       walletId: dbData['walletId'] as int,
       name: dbData['name'] as String,
-      amount: dbData['amount'] as int,
+      amount: dbData['amount'] as num,
       color: dbData['color'] as int,
       icon: IconData(dbData['icon'] as int),
       creationDate: DateTime.parse(dbData['creationDate'] as String),
@@ -69,7 +69,7 @@ class IncomesPageModel {
     }
   }
 
-  addIncomeToDb(int walletId, String name, int amount, int color, IconData icon, DateTime creationDate) async {
+  addIncomeToDb(int walletId, String name, num amount, int color, IconData icon, DateTime creationDate) async {
     DBProvider dbProvider = DBProvider("Income");
     await dbProvider.addIncomeToDb(walletId, name, amount, color, icon.codePoint, creationDate);
   }
@@ -79,7 +79,7 @@ class IncomesPageModel {
     dbProvider.deleteIncomeFromDB(id);
   }
 
-  editIncomeInDB(id, String newName, int newAmount, int newColor, IconData newIcon) async {
+  editIncomeInDB(id, String newName, num newAmount, int newColor, IconData newIcon) async {
     DBProvider dbProvider = DBProvider("Income");
     dbProvider.editIncomeInDB(id, newName, newAmount, newColor, newIcon.codePoint);
   }
@@ -118,7 +118,7 @@ class DBProvider {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
           await db.execute(
-            'CREATE TABLE Income (id INTEGER PRIMARY KEY, walletId INTEGER, name TEXT, amount INTEGER, color INTEGER, icon INTEGER, creationDate TEXT)',
+            'CREATE TABLE Income (id INTEGER PRIMARY KEY, walletId INTEGER, name TEXT, amount NUMERIC, color INTEGER, icon INTEGER, creationDate TEXT)',
           );
         });
   }

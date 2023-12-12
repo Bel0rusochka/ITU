@@ -262,7 +262,7 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
           child: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              Navigator.of(context).pop();
+              _controller.gotoPage(ExpensesPageView(title: "Expenses", walletId: widget.walletId, balance: widget.balance),context);
             },
           ),
         ),
@@ -281,7 +281,7 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
                   _controller.edit(
                     widget.expense.id,
                     nameController.text,
-                    int.parse(amountController.text),
+                    num.parse(amountController.text),
                     selectedColor,
                     selectedIcon,
                   );

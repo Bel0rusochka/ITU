@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ExpenseItemWidget extends StatelessWidget {
   final int color;
   final String name;
-  final int amount;
+  final num amount;
   final int icon;
 
   const ExpenseItemWidget({

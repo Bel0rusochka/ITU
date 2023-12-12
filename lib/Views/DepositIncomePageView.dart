@@ -29,7 +29,7 @@ class _DepositPageViewState extends State<DepositIncomePageView>{
         leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              Navigator.pop(context);
+              _controller.gotoPage(IncomesPageView(title: "Incomes", walletId: widget.walletId, balance: widget.balance),context);
             }
         ),
       ),
@@ -45,6 +45,7 @@ class _DepositPageViewState extends State<DepositIncomePageView>{
                     newAmount = text;
                   });
                 },
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
@@ -54,7 +55,7 @@ class _DepositPageViewState extends State<DepositIncomePageView>{
             GestureDetector(
               onTap: () async {
                 if (newAmount.isNotEmpty) {
-                  int amountToAdd = int.tryParse(newAmount) ?? 0;
+                  num amountToAdd = num.tryParse(newAmount)?? 0;
                   amountToAdd = widget.income.amount + amountToAdd;
 
                   _controller.edit(

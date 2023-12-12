@@ -187,7 +187,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
           child: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              Navigator.of(context).pop();
+              _controller.gotoPage(IncomesPageView(title: "Incomes", walletId: widget.walletId, balance: widget.balance),context);
             },
           ),
         ),
@@ -206,7 +206,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
                   _controller.edit(
                     widget.income.id,
                     nameController.text,
-                    int.parse(amountController.text),
+                    num.parse(amountController.text),
                     selectedColor,
                     selectedIcon,
                   );

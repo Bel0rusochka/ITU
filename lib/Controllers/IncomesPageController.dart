@@ -16,7 +16,7 @@ class IncomesPageController extends ControllerMVC {
 
 
   Future<void> addIncomeToDb(
-      int walletId, String name, int amount, int color, IconData icon, DateTime creationDate) async {
+      int walletId, String name, num amount, int color, IconData icon, DateTime creationDate) async {
     await _model.addIncomeToDb(walletId, name, amount, color, icon, creationDate);
   }
 

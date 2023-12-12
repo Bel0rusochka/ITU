@@ -43,10 +43,12 @@ class _IncomesPageViewState extends State<IncomesPageView> {
   }
 
   void navigateToNewIncomePage() {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => NewIncomePageView(title: 'New Income',balance: widget.balance, walletId: widget.walletId),
-    ));
+    _controller.gotoPage(
+      NewIncomePageView(title: 'New Income', balance: widget.balance, walletId: widget.walletId),
+      context,
+    );
   }
+
 
   AppBar buildAppBar() {
     return AppBar(
@@ -55,10 +57,7 @@ class _IncomesPageViewState extends State<IncomesPageView> {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                SpecificWalletView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
-          ));
+          _controller.gotoPage(SpecificWalletView(title: widget.title, balance: widget.balance, walletId: widget.walletId),context);
         },
       ),
       title: const Text(
@@ -90,9 +89,10 @@ class _IncomesPageViewState extends State<IncomesPageView> {
           final income = _incomes[index];
           return InkWell(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => IncomeDetailsPageView(income: income, balance: widget.balance, walletId: widget.walletId),
-              ));
+              _controller.gotoPage(
+                IncomeDetailsPageView(income: income, balance: widget.balance, walletId: widget.walletId),
+                context,
+              );
             },
             child: IncomeItemWidget(
               color: income.color,

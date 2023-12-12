@@ -43,9 +43,10 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
   }
 
   void navigateToNewExpensePage() {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => NewExpensePageView(title: 'New Expense', balance: widget.balance, walletId: widget.walletId),
-    ));
+    _controller.gotoPage(
+      NewExpensePageView(title: 'New Expense', balance: widget.balance, walletId: widget.walletId),
+      context,
+    );
   }
 
   AppBar buildAppBar() {
@@ -55,10 +56,7 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>
-                SpecificWalletView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
-          ));
+          _controller.gotoPage(SpecificWalletView(title: widget.title, balance: widget.balance, walletId: widget.walletId),context);
         },
       ),
       title: const Text(
@@ -90,9 +88,10 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
             final expense = _expenses[index];
             return InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ExpenseDetailsPageView(expense: expense, balance: widget.balance, walletId: widget.walletId),
-                ));
+                _controller.gotoPage(
+                  ExpenseDetailsPageView(expense: expense, balance: widget.balance, walletId: widget.walletId),
+                  context,
+                );
               },
               child: ExpenseItemWidget(
                 color: expense.color,

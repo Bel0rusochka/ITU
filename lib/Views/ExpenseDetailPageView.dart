@@ -41,6 +41,12 @@ class ExpenseDetailsPageView extends StatelessWidget {
         ),
         backgroundColor: const Color(0xFF575093),
         iconTheme: const IconThemeData(color: Colors.white),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            _controller.gotoPage(ExpensesPageView(title: "Expenses", walletId: walletId, balance: balance),context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -78,23 +84,15 @@ class ExpenseDetailsPageView extends StatelessWidget {
                 children: <Widget>[
                   ElevatedButton(
                     style: buttonStyle,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DepositPageView(expense: expense, balance: balance, walletId: walletId)),
-                      );
-                    },
+                  onPressed: () {
+                    _controller.gotoPage(DepositPageView(expense: expense, balance: balance, walletId: walletId), context);
+                  },
                     child: const Text('Deposit +'),
                   ),
                   ElevatedButton(
                     style: buttonStyle,
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WithdrawPageView(expense: expense, balance: balance, walletId: walletId)),
-                      );
+                      _controller.gotoPage(WithdrawPageView(expense: expense, balance: balance, walletId: walletId), context);
                     },
                     child: const Text('Withdraw −'),
                   ),
@@ -105,14 +103,9 @@ class ExpenseDetailsPageView extends StatelessWidget {
                 children: <Widget>[
                   ElevatedButton.icon(
                     style: buttonStyle,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                EditExpensePageView(expense: expense, balance: balance, walletId: walletId)),
-                      );
-                    },
+                  onPressed: () {
+                    _controller.gotoPage(EditExpensePageView(expense: expense, balance: balance, walletId: walletId), context);
+                  },
                     icon: const Icon(Icons.edit),
                     label: const Text('Edit'),
                   ),

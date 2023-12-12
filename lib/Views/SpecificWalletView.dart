@@ -44,7 +44,7 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
 
     // Load and calculate expenses for the current week
     List<Expense> expenses = await _expenseModel.loadDBData();
-    int expenseSum = expenses
+    num expenseSum = expenses
         .where((expense) =>
     expense.creationDate.isAfter(startOfWeek) &&
         expense.creationDate.isBefore(endOfWeek) &&
@@ -53,7 +53,7 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
 
     // Load and calculate incomes for the current week
     List<Income> incomes = await _incomesModel.loadDBData();
-    int incomeSum = incomes
+    num incomeSum = incomes
         .where((income) =>
     income.creationDate.isAfter(startOfWeek) &&
         income.creationDate.isBefore(endOfWeek) &&
@@ -66,12 +66,12 @@ class _SpecificWalletViewState extends State<SpecificWalletView> {
     });
   }
 
-  int expenseTotal = 0;
-  int incomeTotal = 0;
+  num expenseTotal = 0;
+  num incomeTotal = 0;
 
   @override
   Widget build(BuildContext context) {
-    int balance = incomeTotal - expenseTotal;
+    num balance = incomeTotal - expenseTotal;
     widget.balance.amount = balance.toString();
     return Scaffold(
       appBar: AppBar(
