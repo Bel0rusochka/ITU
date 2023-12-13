@@ -11,8 +11,9 @@ class ExpenseDetailsPageView extends StatelessWidget {
   final Expense expense;
   final Balance balance;
   final int walletId;
+  final String title;
 
-  ExpenseDetailsPageView({Key? key, required this.expense, required this.walletId, required this.balance}) : super(key: key);
+  ExpenseDetailsPageView({Key? key, required this.expense, required this.walletId, required this.balance, required this.title}) : super(key: key);
 
   final ExpensesPageController _controller = ExpensesPageController();
 
@@ -44,7 +45,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            _controller.gotoPage(ExpensesPageView(title: "Expenses", walletId: walletId, balance: balance),context);
+            _controller.gotoPage(ExpensesPageView(title: title, walletId: walletId, balance: balance),context);
           },
         ),
       ),
@@ -85,14 +86,14 @@ class ExpenseDetailsPageView extends StatelessWidget {
                   ElevatedButton(
                     style: buttonStyle,
                   onPressed: () {
-                    _controller.gotoPage(DepositPageView(expense: expense, balance: balance, walletId: walletId), context);
+                    _controller.gotoPage(DepositPageView(expense: expense, balance: balance, walletId: walletId, title: title,), context);
                   },
                     child: const Text('Deposit +'),
                   ),
                   ElevatedButton(
                     style: buttonStyle,
                     onPressed: () {
-                      _controller.gotoPage(WithdrawPageView(expense: expense, balance: balance, walletId: walletId), context);
+                      _controller.gotoPage(WithdrawPageView(expense: expense, balance: balance, walletId: walletId, title: title,), context);
                     },
                     child: const Text('Withdraw −'),
                   ),
@@ -104,7 +105,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
                   ElevatedButton.icon(
                     style: buttonStyle,
                   onPressed: () {
-                    _controller.gotoPage(EditExpensePageView(expense: expense, balance: balance, walletId: walletId), context);
+                    _controller.gotoPage(EditExpensePageView(expense: expense, balance: balance, walletId: walletId, title: title,), context);
                   },
                     icon: const Icon(Icons.edit),
                     label: const Text('Edit'),
@@ -114,7 +115,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
                     onPressed: () {
                       _controller.dellExpense(expense.id);
 
-                      _controller.gotoPage(ExpensesPageView(title: "Expenses",balance: balance, walletId: walletId),context);
+                      _controller.gotoPage(ExpensesPageView(title: title,balance: balance, walletId: walletId),context);
                     },
                     icon: const Icon(Icons.delete),
                     label: const Text('Delete'),

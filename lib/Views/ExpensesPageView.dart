@@ -44,7 +44,7 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
 
   void navigateToNewExpensePage() {
     _controller.gotoPage(
-      NewExpensePageView(title: 'New Expense', balance: widget.balance, walletId: widget.walletId),
+      NewExpensePageView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
       context,
     );
   }
@@ -89,7 +89,7 @@ class _ExpensesPageViewState extends State<ExpensesPageView> {
             return InkWell(
               onTap: () {
                 _controller.gotoPage(
-                  ExpenseDetailsPageView(expense: expense, balance: widget.balance, walletId: widget.walletId),
+                  ExpenseDetailsPageView(expense: expense, balance: widget.balance, walletId: widget.walletId, title: widget.title,),
                   context,
                 );
               },

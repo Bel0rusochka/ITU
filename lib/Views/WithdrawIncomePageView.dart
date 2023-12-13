@@ -10,8 +10,9 @@ class WithdrawIncomePageView extends StatefulWidget {
   final Income income;
   final int walletId;
   final Balance balance;
+  final String title;
 
-  const WithdrawIncomePageView({Key? key, required this.income,required this.walletId, required this.balance}) : super(key: key);
+  const WithdrawIncomePageView({Key? key, required this.income,required this.walletId, required this.balance, required this.title}) : super(key: key);
 
   @override
   State<WithdrawIncomePageView> createState() => _WithdrawPageViewState();
@@ -31,7 +32,7 @@ class _WithdrawPageViewState extends State<WithdrawIncomePageView> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            _controller.gotoPage(IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,), context);
+            _controller.gotoPage(IncomesPageView(title: widget.title, balance: widget.balance, walletId: widget.walletId,), context);
           },
         ),
       ),

@@ -9,8 +9,9 @@ class EditIncomePageView extends StatefulWidget {
   final Income income;
   final int walletId;
   final Balance balance;
+  final String title;
 
-  const EditIncomePageView({Key? key, required this.income, required this.walletId, required this.balance})
+  const EditIncomePageView({Key? key, required this.income, required this.walletId, required this.balance, required this.title})
       : super(key: key);
 
   @override
@@ -187,7 +188,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
           child: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              _controller.gotoPage(IncomesPageView(title: "Incomes", walletId: widget.walletId, balance: widget.balance),context);
+              _controller.gotoPage(IncomesPageView(title: widget.title, walletId: widget.walletId, balance: widget.balance),context);
             },
           ),
         ),

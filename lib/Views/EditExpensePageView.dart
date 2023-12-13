@@ -9,8 +9,9 @@ class EditExpensePageView extends StatefulWidget {
   final Expense expense;
   final int walletId;
   final Balance balance;
+  final String title;
 
-  const EditExpensePageView({Key? key, required this.expense, required this.walletId, required this.balance})
+  const EditExpensePageView({Key? key, required this.expense, required this.walletId, required this.balance, required this.title})
       : super(key: key);
 
   @override
@@ -262,7 +263,7 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
           child: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              _controller.gotoPage(ExpensesPageView(title: "Expenses", walletId: widget.walletId, balance: widget.balance),context);
+              _controller.gotoPage(ExpensesPageView(title: widget.title, walletId: widget.walletId, balance: widget.balance),context);
             },
           ),
         ),

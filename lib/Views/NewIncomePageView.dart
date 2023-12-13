@@ -159,11 +159,11 @@ class _NewIncomePageViewState extends State<NewIncomePageView> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF575093),
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 20.0),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 20.0),
           child: Text(
-            widget.title,
-            style: const TextStyle(fontSize: 28, color: Colors.white),
+            "New Income",
+            style: TextStyle(fontSize: 28, color: Colors.white),
           ),
         ),
         centerTitle: true,

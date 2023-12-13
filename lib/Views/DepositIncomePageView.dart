@@ -10,8 +10,9 @@ class DepositIncomePageView extends StatefulWidget {
   final Income income;
   final int walletId;
   final Balance balance;
+  final String title;
 
-  const DepositIncomePageView({Key? key, required this.income, required this.walletId, required this.balance}) : super(key: key);
+  const DepositIncomePageView({Key? key, required this.income, required this.walletId, required this.balance, required this.title}) : super(key: key);
 
   @override
   State<DepositIncomePageView> createState() => _DepositPageViewState();
@@ -29,7 +30,7 @@ class _DepositPageViewState extends State<DepositIncomePageView>{
         leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              _controller.gotoPage(IncomesPageView(title: "Incomes", walletId: widget.walletId, balance: widget.balance),context);
+              _controller.gotoPage(IncomesPageView(title: widget.title, walletId: widget.walletId, balance: widget.balance),context);
             }
         ),
       ),

@@ -11,8 +11,9 @@ class IncomeDetailsPageView extends StatelessWidget {
   final Income income;
   final Balance balance;
   final int walletId;
+  final String title;
 
-  IncomeDetailsPageView({Key? key, required this.income, required this.walletId, required this.balance}) : super(key: key);
+  IncomeDetailsPageView({Key? key, required this.income, required this.walletId, required this.balance, required this.title}) : super(key: key);
 
   final IncomesPageController _controller = IncomesPageController();
 
@@ -41,6 +42,12 @@ class IncomeDetailsPageView extends StatelessWidget {
         ),
         backgroundColor: const Color(0xFF575093),
         iconTheme: const IconThemeData(color: Colors.white),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            _controller.gotoPage(IncomesPageView(title: title, walletId: walletId, balance: balance),context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -80,7 +87,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                     style: buttonStyle,
                     onPressed: () {
                       _controller.gotoPage(
-                        DepositIncomePageView(income: income, balance: balance, walletId: walletId),
+                        DepositIncomePageView(income: income, balance: balance, walletId: walletId, title: title,),
                         context,
                       );
                     },
@@ -90,7 +97,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                     style: buttonStyle,
                     onPressed: () {
                       _controller.gotoPage(
-                        WithdrawIncomePageView(income: income, balance: balance, walletId: walletId),
+                        WithdrawIncomePageView(income: income, balance: balance, walletId: walletId, title: title,),
                         context,
                       );
                     },
@@ -105,7 +112,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                     style: buttonStyle,
                     onPressed: () {
                       _controller.gotoPage(
-                        EditIncomePageView(income: income, balance: balance, walletId: walletId),
+                        EditIncomePageView(income: income, balance: balance, walletId: walletId, title: title,),
                         context,
                       );
                     },
@@ -117,7 +124,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                     onPressed: () {
                       _controller.dellIncome(income.id);
 
-                      _controller.gotoPage(IncomesPageView(title: "Incomes", balance: balance, walletId: walletId,), context);
+                      _controller.gotoPage(IncomesPageView(title: title, balance: balance, walletId: walletId,), context);
                     },
                     icon: const Icon(Icons.delete),
                     label: const Text('Delete'),
