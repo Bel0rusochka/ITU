@@ -1,5 +1,5 @@
 // File: GoalsEditDeletePage.dart
-// Author: Taipova Evgeniya
+// Author: Taipova Evgeniya (xtaipo00)
 // Description: This file contains the implementation of the GoalsEditDeletePage class,
 // which allows users to edit, delete, and manage their financial goals in the finance application.
 
