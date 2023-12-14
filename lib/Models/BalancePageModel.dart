@@ -1,8 +1,14 @@
+// File: BalancePageModel.dart
+// Author: Taipova Evgeniya (xtaipo00)
+// Description: This file contains the implementation of the BalancePageModel class,
+// which manages database operations related to balance data, such as loading, adding, deleting, and editing balances.
+
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+// A class representing a balance entry in the database.
 class Balance{
   int id;
   String name;
@@ -21,6 +27,7 @@ class Balance{
 
 class BalancePageModel{
 
+  // Load balance data from the database.
   Future<List<Balance>> loadDBData() async {
     DBProvider dbProvider = DBProvider("BALANCE");
     Database database = await dbProvider.database;
@@ -30,16 +37,19 @@ class BalancePageModel{
     }).toList();
   }
 
+  // Add a new balance entry to the database.
   addBalanceToDb(name, amount) async{
     DBProvider dbProvider = DBProvider("BALANCE");
     dbProvider.addBalanceToDb(name, amount);
   }
 
+  // Delete a balance entry from the database.
   dellBalanceFromDB(id) async{
     DBProvider dbProvider = DBProvider("BALANCE");
     dbProvider.dellBalanceFromDB(id);
   }
 
+  // Edit a balance entry in the database
   editBalanceInDB(id, newName, newAmount) async{
     DBProvider dbProvider = DBProvider("BALANCE");
     dbProvider.editBalanceInDB(id, newName, newAmount);
