@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
+// File: BalanceAddPageView.dart
+// Author: Taipova Evgeniya (xtaipo00)
+// Description: This file contains the implementation of the BalanceAddPageView class,
+// which allows users to add a new balance entry.
 
+
+import 'package:flutter/material.dart';
 import '../Controllers/BalancePageController.dart';
 import 'BalancePageView.dart';
 
@@ -33,7 +38,9 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
+                // Save the balance with the given name and amount
                 _controller.saveBalance(name, amount);
+                // Navigate back to the BalancePageView
                 _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
               }
           )
@@ -42,6 +49,7 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Input field for entering the name
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
@@ -61,6 +69,7 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
                 ),
               ),
             ),
+            // Input field for entering the amount
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
