@@ -1,6 +1,13 @@
+// File: GoalsAddPageView.dart
+// Author: Taipova Evgeniya (xtaipo00)
+// Description: This file contains the implementation of the GoalsAddPageView class,
+// which is responsible for adding new goals in the finance application.
+
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Views/GoalsPageView.dart';
 import 'package:itu_dev/Controllers/GoalsPageController.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class GoalsAddPageView extends StatefulWidget {
   const GoalsAddPageView({super.key, required this.title});
@@ -13,14 +20,15 @@ class GoalsAddPageView extends StatefulWidget {
 
 class _GoalsAddPageViewState extends State<GoalsAddPageView>{
   final GoalsPageController _controller = GoalsPageController();
+  TextEditingController dateController = TextEditingController();
 
 
   @override
   Widget build(BuildContext context){
+    // Initialize variables to store user input.
     String name="";
     String goalAmount="";
     String amount="";
-    String date="";
 
 
     return Scaffold(
@@ -32,10 +40,11 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
           onPressed:  (){_controller.gotoPage(const GoalsPageView(title: "My Goal"), context);},
         ),
         actions: <Widget>[
+          // Save button to save the entered goal.
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                _controller.saveGoal(name, goalAmount, amount, date);
+                _controller.saveGoal(name, goalAmount, amount, dateController.text);
                 _controller.gotoPage(const GoalsPageView(title: "My Goal"), context);
               }
           )
@@ -44,6 +53,7 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Text field for entering the name of the goal.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
@@ -63,15 +73,21 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                 ),
               ),
             ),
+            // Text field for entering the goal amount.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                onChanged: (text){goalAmount = text;} ,
+                onChanged: (text) {
+                  goalAmount = text;
+                },
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
-
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
@@ -82,15 +98,21 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                 ),
               ),
             ),
+            // Text field for entering the collected amount.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                onChanged: (text){amount = text;} ,
+                onChanged: (text) {
+                  amount = text;
+                },
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
-
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
@@ -101,15 +123,28 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
                 ),
               ),
             ),
+            // Text field for selecting the date.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
+                controller: dateController,
+                readOnly: true,
                 style: const TextStyle(color: Colors.white),
-                onChanged: (text){date = text;} ,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2022),  // Start date
+                    lastDate: DateTime(2025),   // End date
+                  );
+                  if (pickedDate != null) {
+                    String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+                    dateController.text = formattedDate;
+                  }
+                },
                 decoration: const InputDecoration(
                   labelStyle: TextStyle(color: Color.fromARGB(100, 255, 255, 255)),
                   border: OutlineInputBorder(),
-
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(100, 255, 255, 255)),
                   ),
