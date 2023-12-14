@@ -1,7 +1,12 @@
+// File: BalancePageController.dart
+// Author: Taipova Evgeniya (xtaipo00)
+// Description: This file contains the implementation of the BalancePageController class,
+// which is responsible for managing balance-related logic, including loading, adding, deleting,
+// and editing balance entries.
+
 import 'package:itu_dev/Views/SpecificWalletView.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:flutter/material.dart';
-
 import '../Models/BalancePageModel.dart';
 import '../Models/ExpensesPageModel.dart';
 import '../Models/IncomesPageModel.dart';
@@ -20,6 +25,7 @@ class BalancePageController extends ControllerMVC {
 
   late num totalAmount = 0; // Declare totalAmount as a num variable
 
+  // Create a widget for displaying balances
   Future<Widget> drawBubbleBalance(context, colorAlfa) async {
     List<Balance> balances = await _model.loadDBData();
     return Padding(
@@ -47,6 +53,7 @@ class BalancePageController extends ControllerMVC {
     );
   }
 
+  // Calculate the total amount of balances
   Future<num> calculateTotalAmount() async {
     List<Balance> balances = await _model.loadDBData();
     num calculatedTotalAmount = balances.fold<num>(
@@ -63,6 +70,7 @@ class BalancePageController extends ControllerMVC {
     return  double.tryParse(targetBalance.amount);
   }
 
+  // Update the total amount
   Future<void> updateTotalAmount() async {
     totalAmount = await calculateTotalAmount();
     setState(() {});
@@ -107,7 +115,7 @@ class BalancePageController extends ControllerMVC {
   }
 
 
-
+// Navigate to another page
   void gotoPage(pageObj, context) {
     Navigator.pushReplacement(
       context,
@@ -115,6 +123,7 @@ class BalancePageController extends ControllerMVC {
     );
   }
 
+  // Draw a container for displaying balance
   Container drawContainerBalance(height, width, colorAlfa, balance) {
     return Container(
       height: height,
@@ -148,6 +157,7 @@ class BalancePageController extends ControllerMVC {
     );
   }
 
+  // Delete a balance
   void dellBalance(id) {
     _incomesModel.deleteIncomesByWalletId(id);
     _expenseModel.deleteExpensesByWalletId(id);
@@ -155,12 +165,14 @@ class BalancePageController extends ControllerMVC {
     updateTotalAmount();
   }
 
+  // Save a new balance
   void saveBalance(name, amount) {
     _model.addBalanceToDb(name, amount).then((_) {
       updateTotalAmount(); // Update totalAmount immediately after saving
     });
   }
 
+  // Edit a balance
   void edit(id, newName, newAmount){
     _model.editBalanceInDB(id, newName, newAmount).then((_) {
       updateTotalAmount(); // Update totalAmount immediately after editing
