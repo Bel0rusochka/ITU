@@ -1,8 +1,13 @@
+// File: BalancePageView.dart
+// Author: Taipova Evgeniya (xtaipo00)
+// Description: This file contains the implementation of the BalancePageView class,
+// which is responsible for displaying the user's balance and allowing them to add new balances.
+
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Views/BottomNavigationBarWidgetView.dart';
 import '../Controllers/BalancePageController.dart';
 import 'BalanceAddPageView.dart';
-import 'BottomNavigationBarWidgetView.dart';
+
 class BalancePageView extends StatefulWidget {
   const BalancePageView({super.key, required this.title});
 
@@ -18,7 +23,9 @@ class _BalancePageViewState extends State<BalancePageView> {
   Color color = Colors.white;
   var wightBubble = 372.0;
   var heightBubble = 70.0;
-  late num totalAmount; // Declare totalAmount as a late variable
+  // Declare totalAmount as a late variable
+  late num totalAmount;
+
 
   Future<void> _refresh() async {
     _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
@@ -62,6 +69,7 @@ class _BalancePageViewState extends State<BalancePageView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                // Display the total balance in a container
                 Container(
                   height: heightBubble,
                   width: wightBubble,
@@ -79,6 +87,7 @@ class _BalancePageViewState extends State<BalancePageView> {
                             fontSize: 24,
                           ),
                         ),
+                        // Display the totalAmount
                         Text(
                           '${totalAmount ?? 0}\$',
                           style: const TextStyle(
@@ -90,6 +99,7 @@ class _BalancePageViewState extends State<BalancePageView> {
                   ),
                 ),
                 const SizedBox(height: 16),
+                // Load and display additional balance data
                 FutureBuilder<Widget>(
                   future: _controller.drawBubbleBalance(context, 255),
                   builder: (context, AsyncSnapshot<Widget> snapshot) {
