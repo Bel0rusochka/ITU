@@ -1,3 +1,14 @@
+/*
+=========================================================================================================
+File: IncomesPageView.dart
+Author: Dinara Garipova (xgarip00)
+
+This Dart file defines a StatefulWidget class, IncomesPageView, representing a page that displays a list of
+incomes. It includes an app bar with navigation and action buttons, a list of income items, and a
+bottom navigation bar. The class utilizes the IncomesPageController for navigation and the IncomesPageModel
+for managing income-related data.
+==========================================================================================================
+*/
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/IncomesPageController.dart';
 import 'package:itu_dev/Models/BalancePageModel.dart';
@@ -9,7 +20,12 @@ import '../Models/IncomesPageModel.dart';
 import 'IncomeDetailPageView.dart';
 
 class IncomesPageView extends StatefulWidget {
-  const IncomesPageView({Key? key, required this.title, required this.walletId, required this.balance}) : super(key: key);
+  const IncomesPageView({
+    Key? key,
+    required this.title,
+    required this.walletId,
+    required this.balance,
+  }) : super(key: key);
 
   final String title;
   final int walletId;
@@ -20,8 +36,13 @@ class IncomesPageView extends StatefulWidget {
 }
 
 class _IncomesPageViewState extends State<IncomesPageView> {
+  // Controller for managing navigation and data related to incomes.
   final IncomesPageController _controller = IncomesPageController();
+
+  // Model for managing data related to incomes.
   final IncomesPageModel _incomeModel = IncomesPageModel();
+
+  // List to store loaded incomes.
   List<Income> _incomes = [];
 
   @override
@@ -35,6 +56,7 @@ class _IncomesPageViewState extends State<IncomesPageView> {
     setState(() {});
   }
 
+  // Method to load incomes from the database
   Future<void> loadIncomes() async {
     List<Income> allIncomes = await _incomeModel.loadDBData();
     setState(() {
@@ -42,14 +64,19 @@ class _IncomesPageViewState extends State<IncomesPageView> {
     });
   }
 
+  // Method to navigate to the New Income page
   void navigateToNewIncomePage() {
     _controller.gotoPage(
-      NewIncomePageView(title: widget.title, balance: widget.balance, walletId: widget.walletId),
+      NewIncomePageView(
+        title: widget.title,
+        balance: widget.balance,
+        walletId: widget.walletId,
+      ),
       context,
     );
   }
 
-
+  // Method to build the app bar for the Incomes page
   AppBar buildAppBar() {
     return AppBar(
       toolbarHeight: 120,
@@ -57,7 +84,14 @@ class _IncomesPageViewState extends State<IncomesPageView> {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
-          _controller.gotoPage(SpecificWalletView(title: widget.title, balance: widget.balance, walletId: widget.walletId),context);
+          _controller.gotoPage(
+            SpecificWalletView(
+              title: widget.title,
+              balance: widget.balance,
+              walletId: widget.walletId,
+            ),
+            context,
+          );
         },
       ),
       title: const Text(
@@ -83,26 +117,31 @@ class _IncomesPageViewState extends State<IncomesPageView> {
       appBar: buildAppBar(),
       body: RefreshIndicator(
         onRefresh: _refresh,
-      child: ListView.builder(
-        itemCount: _incomes.length,
-        itemBuilder: (context, index) {
-          final income = _incomes[index];
-          return InkWell(
-            onTap: () {
-              _controller.gotoPage(
-                IncomeDetailsPageView(income: income, balance: widget.balance, walletId: widget.walletId, title: widget.title,),
-                context,
-              );
-            },
-            child: IncomeItemWidget(
-              color: income.color,
-              name: income.name,
-              amount: income.amount,
-              icon: income.icon.codePoint,
-            ),
-          );
-        },
-      ),
+        child: ListView.builder(
+          itemCount: _incomes.length,
+          itemBuilder: (context, index) {
+            final income = _incomes[index];
+            return InkWell(
+              onTap: () {
+                _controller.gotoPage(
+                  IncomeDetailsPageView(
+                    income: income,
+                    balance: widget.balance,
+                    walletId: widget.walletId,
+                    title: widget.title,
+                  ),
+                  context,
+                );
+              },
+              child: IncomeItemWidget(
+                color: income.color,
+                name: income.name,
+                amount: income.amount,
+                icon: income.icon.codePoint,
+              ),
+            );
+          },
+        ),
       ),
       bottomNavigationBar: BottomNavigationBarWidgetView(),
     );

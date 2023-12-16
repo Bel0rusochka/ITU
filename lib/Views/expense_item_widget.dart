@@ -1,11 +1,23 @@
+/*
+=========================================================================================================
+File: expense_item_widget.dart
+Author: Dinara Garipova (xgarip00)
+
+This Dart file defines a StatelessWidget class, ExpenseItemWidget, representing a single expense item in a list.
+It displays the expense information, including color, name, amount, and icon.
+==========================================================================================================
+*/
 import 'package:flutter/material.dart';
 
+// A StatelessWidget representing a single expense item in a list.
 class ExpenseItemWidget extends StatelessWidget {
-  final int color;
-  final String name;
-  final num amount;
-  final int icon;
+  // Properties to hold information about the expense.
+  final int color;    // Color code for the expense category.
+  final String name;  // Name of the expense.
+  final num amount;   // Amount of the expense.
+  final int icon;     // Icon code for the expense category.
 
+  // Constructor to initialize the properties when creating an instance of the class.
   const ExpenseItemWidget({
     super.key,
     required this.color,
@@ -14,9 +26,12 @@ class ExpenseItemWidget extends StatelessWidget {
     required this.icon,
   });
 
+  // Build method to create the UI for the expense item.
   @override
   Widget build(BuildContext context) {
+    // ListTile widget to display the expense information in a list.
     return ListTile(
+      // Leading section displaying a colored circle with the expense icon.
       leading: Container(
         width: 48.0,
         height: 48.0,
@@ -30,6 +45,7 @@ class ExpenseItemWidget extends StatelessWidget {
           size: 24.0,
         ),
       ),
+      // Title section displaying the name of the expense.
       title: Text(
         name,
         style: const TextStyle(
@@ -38,6 +54,7 @@ class ExpenseItemWidget extends StatelessWidget {
           fontSize: 20.0,
         ),
       ),
+      // Trailing section displaying the amount of the expense.
       trailing: Text(
         amount.toString(),
         style: const TextStyle(

@@ -1,3 +1,13 @@
+/*
+=========================================================================================================
+File: IncomeDetailsPageView.dart
+Author: Dinara Garipova (xgarip00)
+
+This Dart file defines a StatelessWidget class, IncomeDetailsPageView, representing a page that displays
+details for a specific income. It includes income information, deposit and withdraw buttons, as well as
+edit and delete buttons. The class uses the IncomesPageController for navigation and data management.
+==========================================================================================================
+*/
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Models/BalancePageModel.dart';
 import 'package:itu_dev/Views/EditIncomePageView.dart';
@@ -13,12 +23,21 @@ class IncomeDetailsPageView extends StatelessWidget {
   final int walletId;
   final String title;
 
-  IncomeDetailsPageView({Key? key, required this.income, required this.walletId, required this.balance, required this.title}) : super(key: key);
+  // Constructor for the IncomeDetailsPageView.
+  IncomeDetailsPageView({
+    Key? key,
+    required this.income,
+    required this.walletId,
+    required this.balance,
+    required this.title,
+  }) : super(key: key);
 
+  // Controller for managing navigation and data related to incomes.
   final IncomesPageController _controller = IncomesPageController();
 
   @override
   Widget build(BuildContext context) {
+    // Define button styles for consistent appearance.
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
@@ -45,7 +64,10 @@ class IncomeDetailsPageView extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            _controller.gotoPage(IncomesPageView(title: title, walletId: walletId, balance: balance),context);
+            _controller.gotoPage(
+              IncomesPageView(title: title, walletId: walletId, balance: balance),
+              context,
+            );
           },
         ),
       ),
@@ -58,6 +80,7 @@ class IncomeDetailsPageView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              // Display card with income details, including name and amount.
               Card(
                 color: Color(income.color),
                 child: SizedBox(
@@ -80,6 +103,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                   ),
                 ),
               ),
+              // Button bar for deposit and withdraw actions.
               ButtonBar(
                 alignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -87,7 +111,12 @@ class IncomeDetailsPageView extends StatelessWidget {
                     style: buttonStyle,
                     onPressed: () {
                       _controller.gotoPage(
-                        DepositIncomePageView(income: income, balance: balance, walletId: walletId, title: title,),
+                        DepositIncomePageView(
+                          income: income,
+                          balance: balance,
+                          walletId: walletId,
+                          title: title,
+                        ),
                         context,
                       );
                     },
@@ -97,7 +126,12 @@ class IncomeDetailsPageView extends StatelessWidget {
                     style: buttonStyle,
                     onPressed: () {
                       _controller.gotoPage(
-                        WithdrawIncomePageView(income: income, balance: balance, walletId: walletId, title: title,),
+                        WithdrawIncomePageView(
+                          income: income,
+                          balance: balance,
+                          walletId: walletId,
+                          title: title,
+                        ),
                         context,
                       );
                     },
@@ -105,6 +139,7 @@ class IncomeDetailsPageView extends StatelessWidget {
                   ),
                 ],
               ),
+              // Button bar for edit and delete actions.
               ButtonBar(
                 alignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -112,7 +147,12 @@ class IncomeDetailsPageView extends StatelessWidget {
                     style: buttonStyle,
                     onPressed: () {
                       _controller.gotoPage(
-                        EditIncomePageView(income: income, balance: balance, walletId: walletId, title: title,),
+                        EditIncomePageView(
+                          income: income,
+                          balance: balance,
+                          walletId: walletId,
+                          title: title,
+                        ),
                         context,
                       );
                     },
@@ -124,7 +164,14 @@ class IncomeDetailsPageView extends StatelessWidget {
                     onPressed: () {
                       _controller.dellIncome(income.id);
 
-                      _controller.gotoPage(IncomesPageView(title: title, balance: balance, walletId: walletId,), context);
+                      _controller.gotoPage(
+                        IncomesPageView(
+                          title: title,
+                          balance: balance,
+                          walletId: walletId,
+                        ),
+                        context,
+                      );
                     },
                     icon: const Icon(Icons.delete),
                     label: const Text('Delete'),
@@ -138,5 +185,3 @@ class IncomeDetailsPageView extends StatelessWidget {
     );
   }
 }
-
-

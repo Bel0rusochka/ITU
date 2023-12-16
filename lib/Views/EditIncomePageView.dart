@@ -1,3 +1,12 @@
+/*
+=========================================================================================================
+File: EditIncomePageView.dart
+Author: Dinara Garipova (xgarip00)
+
+This Dart file defines a StatefulWidget class, EditIncomePageView, representing the page for editing income details.
+Users can edit the name, amount, color, and icon of the income.
+==========================================================================================================
+*/
 import 'package:flutter/material.dart';
 import 'package:itu_dev/Controllers/IncomesPageController.dart';
 import 'package:itu_dev/Models/BalancePageModel.dart';
@@ -5,12 +14,15 @@ import 'package:itu_dev/Models/IncomesPageModel.dart';
 
 import 'IncomesPageView.dart';
 
+// StatefulWidget for editing income details.
 class EditIncomePageView extends StatefulWidget {
+  // Properties to hold income details, wallet information, and page title.
   final Income income;
   final int walletId;
   final Balance balance;
   final String title;
 
+  // Constructor to initialize the properties when creating an instance of the class.
   const EditIncomePageView({Key? key, required this.income, required this.walletId, required this.balance, required this.title})
       : super(key: key);
 
@@ -18,11 +30,16 @@ class EditIncomePageView extends StatefulWidget {
   State<EditIncomePageView> createState() => _EditIncomePageViewState();
 }
 
+// State class for the EditIncomePageView.
 class _EditIncomePageViewState extends State<EditIncomePageView> {
+  // Instance of IncomesPageController for handling page navigation and actions.
   final IncomesPageController _controller = IncomesPageController();
 
+  // Text controllers for the name and amount input fields.
   late TextEditingController nameController;
   late TextEditingController amountController;
+
+  // Variables to hold the selected color and icon for the income.
   int selectedColor = 0xFFDBB387;
   IconData selectedIcon =
   const IconData(0xe59c, fontFamily: 'MaterialIcons');
@@ -31,23 +48,26 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
   void initState() {
     super.initState();
 
+    // Initialize text controllers with the income details.
     nameController = TextEditingController(text: widget.income.name);
-    amountController =
-        TextEditingController(text: widget.income.amount.toString());
+    amountController = TextEditingController(text: widget.income.amount.toString());
+
+    // Initialize selected color and icon with the income details.
     selectedColor = widget.income.color;
     selectedIcon = IconData(widget.income.icon.codePoint, fontFamily: 'MaterialIcons');
   }
 
+  // Function to display an error snackbar.
   Future<void> _showErrorSnackBar(String message) async {
     final snackBar = SnackBar(
-      content: Text(
-        message),
+      content: Text(message),
       duration: const Duration(seconds: 3),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  // Function to choose a color from a dialog.
   Future<void> chooseColor() async {
     int? pickedColor = await showDialog<int>(
       context: context,
@@ -108,6 +128,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
     }
   }
 
+  // Function to choose an icon from a dialog.
   Future<void> chooseIcon() async {
     IconData? pickedIcon = await showDialog<IconData>(
       context: context,
@@ -169,6 +190,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
     }
   }
 
+  // Build method to create the UI for editing an income.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -204,6 +226,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
                 if (nameController.text.isEmpty || amountController.text.isEmpty) {
                   _showErrorSnackBar('Please fill in both name and amount.');
                 } else {
+                  // Edit the income with the new details.
                   _controller.edit(
                     widget.income.id,
                     nameController.text,
@@ -211,6 +234,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
                     selectedColor,
                     selectedIcon,
                   );
+                  // Navigate to the IncomesPageView with updated data.
                   _controller.gotoPage(
                       IncomesPageView(title: "Incomes", balance: widget.balance, walletId: widget.walletId,), context);
                 }
@@ -222,6 +246,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Input field for the income name.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
@@ -240,6 +265,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
                 ),
               ),
             ),
+            // Input field for the income amount.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
@@ -259,6 +285,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
                 ),
               ),
             ),
+            // Row for selecting the income color.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -281,6 +308,7 @@ class _EditIncomePageViewState extends State<EditIncomePageView> {
                 ],
               ),
             ),
+            // Row for selecting the income icon.
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
