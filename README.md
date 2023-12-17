@@ -41,12 +41,12 @@ flutter run
 ### Pozor
 
 Řada konfiguračních souborů se nachází ve složce build, tuto složku jsme nemohli přidat kvůli omezení velikosti archivu. 
-Proto je nejlepším způsobem instalace aplikace nainstalovat soubor app-debug.apk do svého mobilu. 
+Proto je nejlepším způsobem instalace aplikace nainstalovat soubor app-release.apk do svého mobilu. 
 Rád bych také upozornil, že testy na iPhonech nebyly prováděny z důvodu existence takového mobilu u žadného z členů týmu.
 
 ## Instalace mobilní aplikaci
 
-Přeneste soubor app-debug.apk do telefonu a spusťte aplikaci.
+Přeneste soubor app-release.apk do telefonu a spusťte aplikaci.
 
 ## Struktura projektu
 
