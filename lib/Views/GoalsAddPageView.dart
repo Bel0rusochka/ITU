@@ -42,7 +42,7 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                if (name.isEmpty || goalAmount.isEmpty || amount.isEmpty) {
+                if (name.isEmpty || goalAmount.isEmpty || amount.isEmpty || dateController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Please fill in all fields.'),
