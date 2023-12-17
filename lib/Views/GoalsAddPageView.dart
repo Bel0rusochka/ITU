@@ -22,14 +22,12 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
   final GoalsPageController _controller = GoalsPageController();
   TextEditingController dateController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context){
     // Initialize variables to store user input.
     String name="";
     String goalAmount="";
     String amount="";
-
 
     return Scaffold(
       appBar: AppBar(
@@ -44,8 +42,17 @@ class _GoalsAddPageViewState extends State<GoalsAddPageView>{
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                _controller.saveGoal(name, goalAmount, amount, dateController.text);
-                _controller.gotoPage(const GoalsPageView(title: "My Goal"), context);
+                if (name.isEmpty || goalAmount.isEmpty || amount.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please fill in all fields.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  _controller.saveGoal(name, goalAmount, amount, dateController.text);
+                  _controller.gotoPage(const GoalsPageView(title: "My Goal"), context);
+                }
               }
           )
         ],
