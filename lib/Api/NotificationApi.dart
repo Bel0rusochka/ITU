@@ -54,7 +54,7 @@ class NotificationService {
   // Start a periodic timer for sending notifications
   void startNotificationTimer() {
     final _notificationService = NotificationService();
-    Timer.periodic(const Duration(seconds: 10), (timer) async {
+    Timer.periodic(const Duration(hours: 24), (timer) async {
       if (areNotificationsEnabled) {
         // Generate unique ID for each notification
         int id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
