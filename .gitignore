@@ -7,6 +7,7 @@
 /macos
 /web
 /windows
+/test
 .metadata
 analysis_options.yaml
 itu_dev.iml
