@@ -89,13 +89,14 @@ class ExpenseDetailsPageView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // Display the expense details in a Card widget.
-              Card(
-                color: Color(expense.color),
-                child: SizedBox(
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Color(expense.color),
+                  ),
                   height: 80.0,
                   child: ListTile(
-                    contentPadding:
-                    const EdgeInsets.only(left: 25.0, right: 22.0, top: 15.0),
+                    contentPadding: const EdgeInsets.only(left: 25.0, right: 22.0, top: 15.0),
                     title: Text(
                       expense.name,
                       style: const TextStyle(
@@ -105,12 +106,11 @@ class ExpenseDetailsPageView extends StatelessWidget {
                     trailing: Text(
                       expense.amount.toString(),
                       style: const TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 22.0,
                       ),
                     ),
                   ),
                 ),
-              ),
               // ButtonBar for organizing deposit and withdraw buttons horizontally.
               ButtonBar(
                 alignment: MainAxisAlignment.spaceAround,
@@ -129,7 +129,25 @@ class ExpenseDetailsPageView extends StatelessWidget {
                         context,
                       );
                     },
-                    child: const Text('Deposit +'),
+                    child: Container(
+                      height: 45.0,
+                      width: 120.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Center(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                Text(
+                                  "Deposit",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ]
+                          )
+                      ),
+                    ),
                   ),
                   // Withdraw button to navigate to the WithdrawPageView.
                   ElevatedButton(
@@ -145,7 +163,25 @@ class ExpenseDetailsPageView extends StatelessWidget {
                         context,
                       );
                     },
-                    child: const Text('Withdraw −'),
+                    child: Container(
+                      height: 45.0,
+                      width: 120.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Center(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                Text(
+                                  "Withdraw",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ]
+                          )
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -154,7 +190,7 @@ class ExpenseDetailsPageView extends StatelessWidget {
                 alignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   // Edit button to navigate to the EditExpensePageView.
-                  ElevatedButton.icon(
+                  ElevatedButton(
                     style: buttonStyle,
                     onPressed: () {
                       _controller.gotoPage(
@@ -167,11 +203,30 @@ class ExpenseDetailsPageView extends StatelessWidget {
                         context,
                       );
                     },
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Edit'),
+                    child: Container(
+                      height: 45.0,
+                      width: 120.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Center(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                Text(
+                                  "Edit",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(width: 9.0),
+                                Icon(Icons.edit, size: 25,)
+                              ]
+                          )
+                      ),
+                    ),
                   ),
                   // Delete button to delete the expense and navigate to the ExpensesPageView.
-                  ElevatedButton.icon(
+                  ElevatedButton(
                     style: deleteButtonStyle,
                     onPressed: () {
                       _controller.dellExpense(expense.id);
@@ -180,8 +235,27 @@ class ExpenseDetailsPageView extends StatelessWidget {
                         context,
                       );
                     },
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Delete'),
+                    child: Container(
+                      height: 45.0,
+                      width: 120.0,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 247, 73, 73),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Center(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:[
+                                Text(
+                                  "Delete",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                SizedBox(width: 9.0),
+                                Icon(Icons.delete, size: 25,)
+                              ]
+                          )
+                      ),
+                    ),
                   ),
                 ],
               ),

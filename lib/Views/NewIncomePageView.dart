@@ -214,7 +214,7 @@ class _NewIncomePageViewState extends State<NewIncomePageView> {
             child: TextButton(
               child: const Text(
                 'Save',
-                style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () {
                 // Handling the save button press.

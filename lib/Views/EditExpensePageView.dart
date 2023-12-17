@@ -295,7 +295,7 @@ class _EditExpensePageViewState extends State<EditExpensePageView> {
             child: TextButton(
               child: const Text(
                 'Save',
-                style: TextStyle(color: Color(0xFF6f73d2), fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () {
                 if (nameController.text.isEmpty || amountController.text.isEmpty) {
