@@ -3,7 +3,6 @@
 // Description: This file contains the implementation of the BalanceAddPageView class,
 // which allows users to add a new balance entry.
 
-
 import 'package:flutter/material.dart';
 import '../Controllers/BalancePageController.dart';
 import 'BalancePageView.dart';
@@ -20,11 +19,11 @@ class BalanceAddPageView extends StatefulWidget {
 class _BalanceAddPageViewState extends State<BalanceAddPageView>{
   final BalancePageController _controller = BalancePageController();
 
-
   @override
   Widget build(BuildContext context){
-    String name="";
-    String amount="";
+    // Initialize variables to store user input.
+    String name = "";
+    String amount = "";
 
     return Scaffold(
       appBar: AppBar(
@@ -35,13 +34,24 @@ class _BalanceAddPageViewState extends State<BalanceAddPageView>{
           onPressed:  (){_controller.gotoPage(const BalancePageView(title: "My Balance"), context);},
         ),
         actions: <Widget>[
+          // Save button to save the entered balance.
           TextButton(
               child: const Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
               onPressed: (){
-                // Save the balance with the given name and amount
-                _controller.saveBalance(name, amount);
-                // Navigate back to the BalancePageView
-                _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
+                // Check if both fields are filled out
+                if (name.isEmpty || amount.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please fill in all fields.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  // Save the balance with the given name and amount
+                  _controller.saveBalance(name, amount);
+                  // Navigate back to the BalancePageView
+                  _controller.gotoPage(const BalancePageView(title: "My Balance"), context);
+                }
               }
           )
         ],
