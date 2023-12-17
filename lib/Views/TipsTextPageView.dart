@@ -37,7 +37,6 @@ class _TipsTextPageViewState extends State<TipsTextPageView> {
     super.initState();
     selectedCategory = widget.category;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,36 +48,38 @@ class _TipsTextPageViewState extends State<TipsTextPageView> {
           onPressed:  (){_controller.gotoPage(const TipsPageView(title: "My Financial advices"), context);},
         ),
       ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Displaying the title of the financial advice
-            Text(
-              widget.title,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 15),
-            // Displaying the detailed text of the financial advice
-            Text(
-              widget.text,
-              style: const TextStyle(fontSize: 20, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 90),
-            // Row of category selection buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildCategoryButton('Useful', 'Useful'),
-                buildCategoryButton('None', 'No Category'),
-                buildCategoryButton('Useless', 'Useless'),
-              ],
-            ),
-            const SizedBox(height: 90),
-          ],
+      body: SingleChildScrollView( // Wrap your body with SingleChildScrollView
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Displaying the title of the financial advice
+              Text(
+                widget.title,
+                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 15),
+              // Displaying the detailed text of the financial advice
+              Text(
+                widget.text,
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 90),
+              // Row of category selection buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildCategoryButton('Useful', 'Useful'),
+                  buildCategoryButton('None', 'No Category'),
+                  buildCategoryButton('Useless', 'Useless'),
+                ],
+              ),
+              const SizedBox(height: 90),
+            ],
+          ),
         ),
       ),
     );
