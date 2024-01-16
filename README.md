@@ -46,7 +46,7 @@ Rád bych také upozornil, že testy na iPhonech nebyly prováděny z důvodu ex
 
 ## Instalace mobilní aplikaci
 
-Přeneste soubor app-release.apk do telefonu a spusťte aplikaci.
+Přeneste soubor app-release.apk do mobilu a spusťte aplikaci.
 
 ## Struktura projektu
 
